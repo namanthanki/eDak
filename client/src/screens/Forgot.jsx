@@ -2,6 +2,8 @@ import React, { useState } from "react";
 
 import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
+import { isAuth } from "../helpers/auth";
+import { Redirect } from "react-router-dom";
 
 const Forgot = ({ history }) => {
   const [formData, setFormData] = useState({
@@ -19,7 +21,7 @@ const Forgot = ({ history }) => {
     if (email) {
       let id = toast.info("Please Wait...", { autoClose: false });
       axios
-        .put(`${process.env.REACT_APP_API_URL}/password/forgot`, {
+        .put("http://localhost:5000/api/password/forgot", {
           email,
         })
         .then((res) => {
@@ -46,24 +48,27 @@ const Forgot = ({ history }) => {
   };
 
   return (
-    <div className="form-wrapper">
+    <div className="auth-container">
+      {isAuth() ? <Redirect to="/app" /> : null}
       <ToastContainer />
-      <div className="illustration"></div>
-      <div className="activate-wrapper">
-        <h1>Change Password</h1>
+      <div className="illustration register"></div>
+      <div className="auth-wrapper">
         <form onSubmit={handleSubmit}>
-          <div className="field-wrapper forgot">
-            <input
-              type="email"
-              placeholder="Email"
-              onChange={handleChange("email")}
-              value={email}
-            />
-          </div>
-          <div className="btn-wrapper">
-            <button type="submit" className="btn">
-              Submit
-            </button>
+          <div className="form-wrapper">
+            <h1>Change Password</h1>
+            <div className="field-wrapper">
+              <input
+                type="email"
+                placeholder="Email"
+                onChange={handleChange("email")}
+                value={email}
+              />
+            </div>
+            <div className="btn-wrapper">
+              <button type="submit" className="btn btn-full">
+                Submit
+              </button>
+            </div>
           </div>
         </form>
       </div>

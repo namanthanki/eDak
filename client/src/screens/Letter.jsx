@@ -1,21 +1,24 @@
 import React from "react";
 import Navbar from "./Navbar";
+import { Redirect } from "react-router-dom";
 
 import PeopleAltOutlinedIcon from "@mui/icons-material/PeopleAltOutlined";
 import user from "../assets/user.png";
 import illustration from "../assets/illustration.svg";
 import { useHistory } from "react-router";
+import { isAuth } from "../helpers/auth";
 
 const Write = () => {
   const history = useHistory();
   const redirect = () => {
     history.push("/app");
   };
-  const len = [0, 0, 0, 0, 0, 0, 0, 0];
+  const len = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
   return (
     <div>
+      {isAuth() ? null : <Redirect to="/login" />}
       <Navbar />
-      <section className="main-showcase">
+      <section className="home-showcase">
         <div className="friends-list">
           <div className="filter-wrapper">
             <div className="friends-count">
@@ -52,7 +55,7 @@ const Write = () => {
               <img src={illustration} alt="profile" />
             </div>
           </div>
-          <div className="letter-wrapper">
+          <div className="opened-letter-wrapper">
             <div className="opened-letter">
               <div className="to-details">
                 <div>
@@ -85,7 +88,12 @@ const Write = () => {
                   voluptatum provident, corporis nostrum qui labore ad, earum
                   illo amet cupiditate blanditiis molestiae eius dolorem
                   possimus beatae consequatur sed doloremque officiis
-                  aspernatur. Saepe nihil pariatur ea ducimus excepturi?
+                  aspernatur. Saepe nihil pariatur ea ducimus excepturi? Laborum
+                  rem nisi saepe voluptas dignissimos distinctio voluptatum
+                  provident, corporis nostrum qui labore ad, earum illo amet
+                  cupiditate blanditiis molestiae eius dolorem possimus beatae
+                  consequatur sed doloremque officiis aspernatur. Saepe nihil
+                  pariatur ea ducimus excepturi?
                 </p>
               </div>
             </div>

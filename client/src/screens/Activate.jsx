@@ -7,31 +7,23 @@ import { Redirect } from "react-router-dom";
 
 const Activate = ({ match }) => {
   const [formData, setFormData] = useState({
-    username: "", 
+    username: "",
     token: "",
     show: true,
   });
 
   useEffect(() => {
     let token = match.params.token;
-    let { 
-      username
-    } = jwt.decode(token);
+    let { username } = jwt.decode(token);
 
     if (token) {
-      setFormData({ ...formData,
-        username,
-        token 
-      });
+      setFormData({ ...formData, username, token });
     }
+    // eslint-disable-next-line
   }, [match.params]);
 
-  // eslint-disable-next-line no-unused-vars
-  const { 
-    username,
-    token,
-    show 
-  } = formData;
+  // eslint-disable-next-line
+  const { username, token, show } = formData;
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -49,30 +41,26 @@ const Activate = ({ match }) => {
   };
 
   return (
-    <div className="form-wrapper">
-      {isAuth() ? <Redirect to="/" /> : null}
+    <div className="auth-container">
+      {isAuth() ? <Redirect to="/app" /> : null}
       <ToastContainer />
-      <div className="illustration activate"></div>
-      <div className="activate-wrapper">
-        <h1>
-          Welcome, <br />
-          Activate Your Account
-        </h1>
+      <div className="illustration register"></div>
+      <div className="auth-wrapper">
         <form onSubmit={handleSubmit}>
-          <div className="btn-wrapper">
-            <button type="submit" className="btn">
-              Activate
-            </button>
-          </div>
-          <div className="activate-text">
-            <div>Or sign up again</div>
-          </div>
-          <div className="btn-wrapper">
-            <button className="btn secondary-btn">
-              <a href="/register" target="_self">
-                Sign Up
-              </a>
-            </button>
+          <div className="form-wrapper">
+            <h1 className="accent">Account Activation</h1>
+            <div className="btn-wrapper">
+              <button type="submit" className="btn btn-full">
+                Activate
+              </button>
+            </div>
+            <div className="btn-wrapper">
+              <button className="btn secondary-btn btn-full">
+                <a href="/register" target="_self">
+                  Sign Up
+                </a>
+              </button>
+            </div>
           </div>
         </form>
       </div>

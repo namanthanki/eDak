@@ -4,7 +4,7 @@ import axios from "axios";
 import { authenticate, isAuth } from "../helpers/auth";
 import "../styles/Components.css";
 import "../styles/queries.css";
-import { Redirect } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 
 const Login = ({ history }) => {
   const [formData, setFormData] = useState({
@@ -22,7 +22,7 @@ const Login = ({ history }) => {
     e.preventDefault();
     if (email && passwordInput) {
       axios
-        .post(`${process.env.REACT_APP_API_URL}/login`, {
+        .post(`http://localhost:5000/api/login`, {
           email,
           password: passwordInput,
         })
@@ -46,17 +46,17 @@ const Login = ({ history }) => {
   };
 
   return (
-    <div className="form-wrapper">
+    <div className="auth-container">
       {isAuth() ? <Redirect to="/app" /> : null}
       <ToastContainer />
-      <div className="illustration"></div>
-      <div className="login-wrapper">
+      <div className="illustration login"></div>
+      <div className="auth-wrapper">
         <form onSubmit={handleSubmit}>
-          <div className="inner-form-wrapper">
+          <div className="form-wrapper">
             <h1>Login</h1>
-            <a href="/register">
+            <Link to="/register">
               Don't have an account? <span className="accent">Sign Up</span>
-            </a>
+            </Link>
             <div className="field-wrapper">
               <label>Email *</label>
               <input
@@ -76,12 +76,12 @@ const Login = ({ history }) => {
               />
             </div>
             <div className="forgot-pswd">
-              <a href="/users/password/forgot" className="accent pswd">
+              <Link to="/users/password/forgot" className="accent pswd">
                 Forgot Password?
-              </a>
+              </Link>
             </div>
             <div className="btn-wrapper">
-              <button className="btn" type="submit">
+              <button className="btn btn-full" type="submit">
                 Login
               </button>
             </div>

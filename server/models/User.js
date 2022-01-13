@@ -55,8 +55,7 @@ const userSchema = new mongoose.Schema({
         trim: true,
     },
     userProfileImage: {
-        data: Buffer, 
-        contentType: String
+        type: String
     }, 
     friendList: [
         {

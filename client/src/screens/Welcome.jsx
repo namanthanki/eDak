@@ -11,29 +11,27 @@ function Welcome() {
     <div className="container">
       {isAuth() ? <Redirect to="/app" /> : null}
       <div className="wrapper">
-        <nav>
-          <div className="guest-nav-wrapper">
-            <div className="logo-wrapper">
-              <img src={logo} alt="" id="logo"></img>
-            </div>
-            <div className="button-wrapper">
-              <Link to="/register">
-                <button className="btn secondary-btn">Register</button>
-              </Link>
-              <Link to="/login">
-                <button className="btn">Login</button>
-              </Link>
-            </div>
+        <nav className="guest-nav">
+          <div className="logo-wrapper">
+            <img src={logo} alt="" className="logo"></img>
+          </div>
+          <div className="guest-btn-wrapper">
+            <Link to="/register">
+              <button className="btn secondary-btn">Register</button>
+            </Link>
+            <Link to="/login">
+              <button className="btn">Login</button>
+            </Link>
           </div>
         </nav>
         <div className="showcase">
           <div className="showcase-text">
-            <h1>
+            <h1 className="slogan accent">
               What is
               <br />
               eDak?
             </h1>
-            <p>
+            <p className="sub-text">
               e-Dak goes with old school idea of writing letters and sending it
               to people who live far from you, in this modern era of instant
               messaging people have lost their patience and value of long texts

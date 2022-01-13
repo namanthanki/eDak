@@ -2,13 +2,14 @@ import React, { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import { isAuth } from "../helpers/auth";
 import axios from "axios";
-import { Redirect, Link } from "react-router-dom";
-import user from "../assets/user.png";
-import {arrTopics, arrLanguages} from "../helpers/data";
+import { useHistory } from "react-router-dom";
+import { Redirect } from "react-router-dom";
+import { arrTopics, arrLanguages } from "../helpers/data";
+import Avatar from "@atlaskit/avatar";
 
 import dotenv from "dotenv";
 dotenv.config({
-    path: "../../.env"
+  path: "../../.env",
 });
 
 const Register = () => {
@@ -21,10 +22,20 @@ const Register = () => {
     dateOfBirth: "",
     gender: "",
     interests: [],
-    languages: []
+    languages: [],
   });
 
-  const { username, email, passwordInput, confirmPassword, bio, dateOfBirth, gender, interests, languages } = formData;
+  const {
+    username,
+    email,
+    passwordInput,
+    confirmPassword,
+    bio,
+    dateOfBirth,
+    gender,
+    interests,
+    languages,
+  } = formData;
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -41,7 +52,7 @@ const Register = () => {
             dateOfBirth,
             gender,
             interests,
-            languages
+            languages,
           })
           .then((res) => {
             console.log(formData);
@@ -55,7 +66,7 @@ const Register = () => {
               dateOfBirth: "",
               gender: "",
               interests: [],
-              languages: []
+              languages: [],
             });
             toast.update(id, {
               render: res.data.message,
@@ -79,25 +90,29 @@ const Register = () => {
   };
 
   const errorHandling = () => {
-    if(count === 1) {
-      if(email && passwordInput && confirmPassword) {
-        if(passwordInput.length < 8) {
-          toast.error(
-            "Please Enter Minimum 8 Characters"
-          );
+    if (count === 1) {
+      if (email && passwordInput && confirmPassword) {
+        if (passwordInput.length < 8) {
+          toast.error("Please Enter Minimum 8 Characters");
           setCount(1);
-        }
-        else if(passwordInput.length !== confirmPassword.length) {
-          toast.error(
-            "Passwords Don't Match"
-          );
+        } else if (passwordInput.length !== confirmPassword.length) {
+          toast.error("Passwords Don't Match");
           setCount(1);
         }
       } else {
-        toast.error(
-          "Please Fill in All Fields"
-        );
+        toast.error("Please Fill in All Fields");
         setCount(1);
+      }
+    }
+    if (count === 2) {
+      if ((username && bio && dateOfBirth && gender)) {
+        if (gender === "-Select-") {
+          toast.error("Please Select Your Gender");
+          setCount(2);
+        }
+      } else {
+        toast.error("Please Fill in All Fields");
+        setCount(2);
       }
     }
     if (count === 3) {
@@ -132,7 +147,7 @@ const Register = () => {
 
   const handleArrays = (type) => (e) => {
     let data = document.getElementById([type]).value;
-    if (type === "topic") {
+    if (type === "interest") {
       if (!formData.interests.includes(data)) {
         formData.interests.push(data);
         toast.success(`${data} added as your topic`);
@@ -155,19 +170,31 @@ const Register = () => {
     }
   };
 
+  const history = useHistory();
+
+  const redirect = () => {
+    history.push("/login");
+  };
+
   return (
-    <div className="form-wrapper">
+    <div className="auth-container">
       {isAuth() ? <Redirect to="/app" /> : null}
       <ToastContainer />
-      <div className="illustration sign-up"></div>
-      <div className="login-wrapper">
+      <div className="illustration register"></div>
+      <div className="auth-wrapper">
         {count === 1 ? (
           <form>
-            <div className="inner-form-wrapper">
+            <div className="form-wrapper">
               <h1>Sign Up</h1>
-              <Link to="/login">
-                Already have an account? <span className="accent">Login</span>
-              </Link>
+              <p>
+                Already have an account?{" "}
+                <span
+                  className="accent"
+                  onClick={redirect}
+                  style={{ cursor: "pointer" }}>
+                  Login
+                </span>
+              </p>
               <div className="field-wrapper">
                 <label>Email *</label>
                 <input
@@ -195,138 +222,142 @@ const Register = () => {
                   onChange={handleChange("confirmPassword")}
                 />
               </div>
-              <div className="btn-wrapper">  
-                <button type="button" className="btn" onClick={increaseCount}>
+              <div className="btn-wrapper">
+                <button
+                  type="button"
+                  className="btn btn-full"
+                  onClick={increaseCount}>
                   Continue
                 </button>
               </div>
             </div>
           </form>
-          ): null}
-          {count === 2 ? (
-            <form>
-              <div className="inner-form-wrapper">
-                <div className="field-wrapper img">
-                  <img src={user} alt="user-profile" className="user-img" />
-                </div>
-                <div className="field-wrapper">
-                  <label>Username</label>
-                  <input
-                    name="username"
-                    type="text"
-                    placeholder="Username"
-                    required
-                    onChange={handleChange("username")}
-                  />
-                </div>
-                <div className="field-wrapper">
-                  <label>Bio</label>
-                  <textarea
-                    name="bio"
-                    placeholder="Bio"
-                    onChange={handleChange("bio")}
-                  >  
-                  </textarea>
-                </div>
-                <div className="field-wrapper row">
-                  <div className="col">
-                    <label>Date of Birth</label>
-                    <input
-                      type="date"
-                      name="dateOfBirth"
-                      required
-                      onChange={handleChange("dateOfBirth")}
-                    />
-                  </div>
-                  <div className="col">
-                    <label>Gender</label>
-                    <select
-                      name="gender"
-                      required
-                      onChange={handleChange("gender")}
-                    >
-                      <option value="default" defaultValue>-Select-</option>
-                      <option value="Male">
-                        Male
-                      </option>
-                      <option value="Female">
-                        Female
-                      </option>
-                      <option value="Non-Binary">
-                        Non-Binary
-                      </option>
-                    </select>
-                  </div>
-                </div>
+        ) : null}
+        {count === 2 ? (
+          <form>
+            <div className="form-wrapper">
+              <div className="field-wrapper user-img">
+                <Avatar
+                  src={`https://avatars.dicebear.com/api/bottts/${username}.svg`}
+                  appearance="circle"
+                  size="xlarge"
+                  name={username}
+                />
+              </div>
+              <div className="field-wrapper">
+                <label>Username</label>
+                <input
+                  name="username"
+                  type="text"
+                  placeholder="Username"
+                  required
+                  onChange={handleChange("username")}
+                />
+              </div>
+              <div className="field-wrapper">
+                <label>Bio</label>
+                <textarea
+                  name="bio"
+                  placeholder="Bio"
+                  onChange={handleChange("bio")}></textarea>
+              </div>
+              <div className="field-wrapper">
+                <label>Date of Birth</label>
+                <input
+                  type="date"
+                  name="dateOfBirth"
+                  required
+                  onChange={handleChange("dateOfBirth")}
+                />
+              </div>
+              <div className="field-wrapper">
+                <label>Gender</label>
+                <select
+                  name="gender"
+                  required
+                  onChange={handleChange("gender")}>
+                  <option value="-Select-" selected hidden>
+                    -Select-
+                  </option>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                  <option value="Non-Binary">Non-Binary</option>
+                </select>
+              </div>
 
-                <div className="btn-wrapper continue-first">
-                  <button className="btn" type="button" onClick={increaseCount}>
-                    Continue
-                  </button>
-                </div>
+              <div className="btn-wrapper">
+                <button
+                  className="btn btn-full"
+                  type="button"
+                  onClick={increaseCount}>
+                  Continue
+                </button>
               </div>
-            </form>
-          ) : null}
-          {count === 3 ? (
-            <form>
-              <div className="inner-form-wrapper">
-                <h1>Topics Of Interests</h1>
-                <div className="field-wrapper topics">
-                  <select name="topics" id="topic">
-                    {arrTopics.map((topic, index) => (
-                      <option key={index} value={topic}>
-                        {topic}
-                      </option>
-                    ))}
-                  </select>
-                  <button
-                    className="btn"
-                    type="button"
-                    onClick={handleArrays("topic")}>
-                    Add
-                  </button>
-                </div>
-                <div className="btn-wrapper continue">
-                  <button className="btn" type="button" onClick={decreaseCount}>
-                    Back
-                  </button>
-                  <button className="btn" type="button" onClick={increaseCount}>
-                    Continue
-                  </button>
-                </div>
+            </div>
+          </form>
+        ) : null}
+        {count === 3 ? (
+          <form>
+            <div className="form-wrapper">
+              <h1>Topics Of Interests</h1>
+              <div className="field-wrapper row">
+                <select name="interests" id="interest">
+                  {arrTopics.map((interest, index) => (
+                    <option key={index} value={interest}>
+                      {interest}
+                    </option>
+                  ))}
+                </select>
+                <button
+                  className="btn"
+                  type="button"
+                  onClick={handleArrays("interest")}>
+                  Add
+                </button>
               </div>
-            </form>
-          ) : null}
+              <div className="btn-wrapper col">
+                <button className="btn" type="button" onClick={decreaseCount}>
+                  Back
+                </button>
+                <button className="btn" type="button" onClick={increaseCount}>
+                  Continue
+                </button>
+              </div>
+            </div>
+          </form>
+        ) : null}
 
-          {count === 4 ? (
-            <form>
-              <div className="inner-form-wrapper">
-                <h1>Your Languages</h1>
-                <p>Add the languages that you speak or use</p>
-                <div className="field-wrapper topics">
-                  <select name="languages" id="lang">
-                    {arrLanguages.map((language, index) => (
-                      <option value={language} key={index}>{language}</option>
-                    ))}
-                  </select>
-                  <button
-                    className="btn"
-                    type="button"
-                    onClick={handleArrays("lang")}>
-                    Add
-                  </button>
-                </div>
-                <div className="btn-wrapper continue">
-                  <button type="button" className="btn" onClick={decreaseCount}>
-                    Back
-                  </button>
-                  <button type="submit" className="btn" onClick={handleSubmit}>
-                    Submit
-                  </button>
-                </div>
+        {count === 4 ? (
+          <form>
+            <div className="form-wrapper">
+              <h1>Your Languages</h1>
+              <p>Add the languages that you speak or use</p>
+              <div className="field-wrapper row">
+                <select name="languages" id="lang">
+                  {arrLanguages.map((language, index) => (
+                    <option value={language} key={index}>
+                      {language}
+                    </option>
+                  ))}
+                </select>
+                <button
+                  className="btn"
+                  type="button"
+                  onClick={handleArrays("lang")}>
+                  Add
+                </button>
               </div>
-            </form>
-          ) : null}
+              <div className="btn-wrapper col">
+                <button type="button" className="btn" onClick={decreaseCount}>
+                  Back
+                </button>
+                <button type="submit" className="btn" onClick={handleSubmit}>
+                  Submit
+                </button>
+              </div>
+            </div>
+          </form>
+        ) : null}
       </div>
     </div>
   );
@@ -334,46 +365,4 @@ const Register = () => {
 
 export default Register;
 
-
-// old 
-
-/* <form onSubmit={handleSubmit}>
-          <div className="inner-form-wrapper">
-            <h1>Sign Up</h1>
-            <Link to="/login">
-              Already have an account? <span className="accent">Login</span>
-            </Link>
-            <div className="field-wrapper">
-              <label>Email *</label>
-              <input
-                type="email"
-                placeholder="Email"
-                onChange={handleChange("email")}
-                value={email}
-              />
-            </div>
-            <div className="field-wrapper">
-              <label>Password *</label>
-              <input
-                type="password"
-                placeholder="Password"
-                onChange={handleChange("passwordInput")}
-                value={passwordInput}
-              />
-            </div>
-            <div className="field-wrapper">
-              <label>Confirm Password *</label>
-              <input
-                type="password"
-                placeholder="Confirm Password"
-                onChange={handleChange("confirmPassword")}
-                value={confirmPassword}
-              />
-            </div>
-            <div className="btn-wrapper">
-              <button className="btn" type="submit">
-                Sign Up
-              </button>
-            </div>
-          </div>
-        </form> */
+// Old

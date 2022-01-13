@@ -12,12 +12,12 @@ const Home = () => {
   const redirectLetter = () => {
     history.push("/app/letter");
   };
-  const len = [0, 0, 0, 0, 0, 0, 0, 0];
+  const len = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
   return (
     <div>
       {isAuth() ? null : <Redirect to="/login" />}
       <Navbar />
-      <section className="main-showcase">
+      <section className="home-showcase">
         <div className="friends-list">
           <div className="filter-wrapper">
             <div className="friends-count">

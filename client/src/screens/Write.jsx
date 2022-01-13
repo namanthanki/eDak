@@ -1,16 +1,24 @@
 import React from "react";
 import Navbar from "./Navbar";
+import { Redirect } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 import PeopleAltOutlinedIcon from "@mui/icons-material/PeopleAltOutlined";
 import user from "../assets/user.png";
 import illustration from "../assets/illustration.svg";
+import { isAuth } from "../helpers/auth";
 
 const Write = () => {
-  const len = [0, 0, 0, 0, 0, 0, 0, 0];
+  const len = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+  const history = useHistory();
+  const redirect = () => {
+    history.push("/app");
+  };
   return (
     <div>
+      {isAuth() ? null : <Redirect to="/login" />}
       <Navbar />
-      <section className="main-showcase">
+      <section className="home-showcase">
         <div className="friends-list">
           <div className="filter-wrapper">
             <div className="friends-count">
@@ -22,7 +30,7 @@ const Write = () => {
           </div>
           <div className="list-wrapper">
             {len.map((i) => (
-              <div className="friends" key={i}>
+              <div className="friends" key={i} onClick={redirect}>
                 <div className="friend-details">
                   <h3>friendname</h3>
                   <p>Country</p>
@@ -47,7 +55,7 @@ const Write = () => {
               <img src={illustration} alt="profile" />
             </div>
           </div>
-          <div className="letter-wrapper">
+          <div className="opened-letter-wrapper">
             <div className="opened-letter">
               <div className="to-details">
                 <div>

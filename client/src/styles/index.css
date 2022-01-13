@@ -13,6 +13,8 @@
   --border: #eeeeeeab;
 }
 
+/* Global */
+
 * {
   margin: 0;
   padding: 0;
@@ -22,7 +24,7 @@
 body {
   margin: 0;
   font-family: "Nanum Gothic", sans-serif;
-  background-color: #222831;
+  background-color: var(--bg);
   height: 100vh;
   color: #eeeeee;
   -webkit-font-smoothing: antialiased;
@@ -31,9 +33,22 @@ body {
 
 .container {
   width: 80%;
+  height: 100vh;
   margin: auto;
   margin-bottom: 0.5em;
   overflow: hidden;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1em;
+}
+
+.logo-wrapper {
+  padding: 1em 0;
 }
 
 .btn {
@@ -48,6 +63,10 @@ body {
   cursor: pointer;
 }
 
+.btn-full {
+  width: 100%;
+}
+
 .secondary-btn {
   background-color: var(--primary);
 }
@@ -60,8 +79,49 @@ a {
   text-align: center;
   text-decoration: none;
   color: var(--white);
+  cursor: pointer;
 }
 
 .logo {
   cursor: pointer;
+}
+
+/* Navbar */
+.nav-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 75px;
+  background: var(--primary);
+}
+
+.nav-wrapper .logo-wrapper {
+  display: flex;
+  align-items: center;
+  padding: 0 1.5em;
+  height: inherit;
+}
+
+.nav-wrapper .logo-wrapper .logo {
+  width: 130px;
+}
+
+.nav-wrapper .accessibility-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 1em;
+  padding: 0 1.5em;
+  height: inherit;
+}
+
+.accessibility-wrapper img {
+  width: 3vw;
+  min-width: 50px;
+}
+
+.accessibility-wrapper #logout {
+  margin-bottom: 6px;
 }

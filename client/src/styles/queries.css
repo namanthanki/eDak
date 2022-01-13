@@ -5,16 +5,13 @@
     height: 25vh;
   }
 
-  .logo-wrapper {
+  .guest-nav-wrapper {
     justify-content: center;
   }
 
-  #logo {
-    width: 50%;
-  }
-
-  .button-wrapper {
-    display: none;
+  .logo-wrapper {
+    justify-content: center;
+    align-items: center;
   }
 
   .button-wrapper.mobile {
@@ -53,17 +50,13 @@
     font-size: 13px;
   }
 
-  .showcase-image {
+  .showcase-image,
+  .illustration,
+  .btn-wrapper {
     display: none;
   }
 
-  .illustration {
-    display: none;
-  }
-
-  .form-wrapper {
-    align-items: center;
-    justify-content: center;
+  .auth-container .auth-wrapper {
     width: 100%;
   }
 }

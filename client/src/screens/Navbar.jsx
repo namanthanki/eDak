@@ -1,12 +1,14 @@
 import React from "react";
 import { useHistory } from "react-router";
 import { logout } from "../helpers/auth";
+import { Link } from "react-router-dom";
+
 import logo from "../assets/logo.svg";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined";
 import CreateIcon from "@mui/icons-material/Create";
+import LogoutIcon from "@mui/icons-material/Logout";
 import user from "../assets/user.png";
-import { Button } from "@mui/material";
 
 const Navbar = () => {
   const history = useHistory();
@@ -15,30 +17,28 @@ const Navbar = () => {
   };
   return (
     <div className="nav-wrapper">
-      <button
-        onClick={
-          () => {
-            logout(() => {
-              history.push("/login");
-            })
-          }
-        }
-      >
-        Logout
-      </button>
-      <div className="home-logo-wrapper">
+      <div className="logo-wrapper">
         <img src={logo} alt="logo" onClick={redirect} className="logo" />
       </div>
       <div className="accessibility-wrapper">
-        <a href="/app/explore">
+        <Link to="/app/explore">
           <PersonAddIcon className="access-item" />
-        </a>
-        <a href="/">
+        </Link>
+        <Link to="/">
           <NotificationsOutlinedIcon className="access-item" />
-        </a>
-        <a href="/app/write">
+        </Link>
+        <Link to="/app/write">
           <CreateIcon className="access-item" />
-        </a>
+        </Link>
+        <LogoutIcon
+          onClick={() => {
+            logout(() => {
+              history.push("/login");
+            });
+          }}
+          style={{ cursor: "pointer" }}
+          id="logout"
+        />
         <img src={user} alt="user-profile" />
       </div>
     </div>
