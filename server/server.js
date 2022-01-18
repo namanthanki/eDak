@@ -4,6 +4,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
 import morgan from "morgan";
+import profileRouter from "./routes/profile.js";
 
 import { connectDatabase } from "./config/db.js";
 
@@ -25,6 +26,7 @@ if(process.env.NODE_ENV === "development") {
 }
 
 app.use("/api", authRouter);
+app.use("/user", profileRouter);
 
 app.use((req, res, next) => {
     res.status(404).json({

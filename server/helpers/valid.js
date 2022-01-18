@@ -4,6 +4,9 @@ export const validRegister = [
     check("email")
         .isEmail()
         .withMessage("Must be valid email address"),
+    check("username")
+        .notEmpty()
+        .withMessage("Username is already taken"),
     check("password", "password is required")
         .notEmpty(),
     check("password") 
