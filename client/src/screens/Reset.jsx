@@ -4,6 +4,11 @@ import axios from "axios";
 import { isAuth } from "../helpers/auth";
 import { Redirect } from "react-router-dom";
 
+import dotenv from "dotenv";
+dotenv.config({
+    path: "../../.env"
+});
+
 const Reset = ({ match }) => {
   const [formData, setFormData] = useState({
     passwordInput: "",
@@ -20,6 +25,7 @@ const Reset = ({ match }) => {
         token,
       });
     }
+    // eslint-disable-next-line
   }, [match.params.token]);
 
   const handleChange = (text) => (e) => {
@@ -31,7 +37,7 @@ const Reset = ({ match }) => {
     if (passwordInput === confirmPassword && passwordInput && confirmPassword) {
       let id = toast.info("Please Wait...", { autoClose: false });
       axios
-        .put(`http://localhost:5000/api/password/reset`, {
+        .put(`${process.env.REACT_APP_API_URL}/password/reset`, {
           newPassword: passwordInput,
           resetPasswordLink: token,
         })

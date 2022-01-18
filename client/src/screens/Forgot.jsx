@@ -5,6 +5,11 @@ import axios from "axios";
 import { isAuth } from "../helpers/auth";
 import { Redirect } from "react-router-dom";
 
+import dotenv from "dotenv";
+dotenv.config({
+    path: "../../.env"
+});
+
 const Forgot = ({ history }) => {
   const [formData, setFormData] = useState({
     email: "",
@@ -21,7 +26,7 @@ const Forgot = ({ history }) => {
     if (email) {
       let id = toast.info("Please Wait...", { autoClose: false });
       axios
-        .put("http://localhost:5000/api/password/forgot", {
+        .put(`${process.env.REACT_APP_API_URL}/password/forgot`, {
           email,
         })
         .then((res) => {

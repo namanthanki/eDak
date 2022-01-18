@@ -5,6 +5,11 @@ import jwt from "jsonwebtoken";
 import { isAuth } from "../helpers/auth";
 import { Redirect } from "react-router-dom";
 
+import dotenv from "dotenv";
+dotenv.config({
+    path: "../../.env"
+});
+
 const Activate = ({ match }) => {
   const [formData, setFormData] = useState({
     username: "",

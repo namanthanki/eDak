@@ -44,7 +44,7 @@ const Register = () => {
       if (passwordInput === confirmPassword) {
         id = toast.info("Please Wait...", { autoClose: false });
         axios
-          .post(`http://localhost:5000/api/register`, {
+          .post(`${process.env.REACT_APP_API_URL}/register`, {
             username,
             email,
             password: passwordInput,

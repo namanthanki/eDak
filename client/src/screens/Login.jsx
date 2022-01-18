@@ -6,6 +6,11 @@ import "../styles/Components.css";
 import "../styles/queries.css";
 import { Redirect, Link } from "react-router-dom";
 
+import dotenv from "dotenv";
+dotenv.config({
+    path: "../../.env"
+});
+
 const Login = ({ history }) => {
   const [formData, setFormData] = useState({
     email: "",
@@ -22,7 +27,7 @@ const Login = ({ history }) => {
     e.preventDefault();
     if (email && passwordInput) {
       axios
-        .post(`http://localhost:5000/api/login`, {
+        .post(`${process.env.REACT_APP_API_URL}/login`, {
           email,
           password: passwordInput,
         })
