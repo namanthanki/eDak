@@ -8,7 +8,7 @@ import { Redirect, Link } from "react-router-dom";
 
 import dotenv from "dotenv";
 dotenv.config({
-    path: "../../.env"
+  path: "../../.env",
 });
 
 const Login = ({ history }) => {

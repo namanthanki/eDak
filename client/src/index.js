@@ -12,6 +12,7 @@ import Home from "./screens/Home";
 import Write from "./screens/Write";
 import Letter from "./screens/Letter";
 import Explore from "./screens/Explore";
+import Settings from "./screens/Settings";
 
 import "react-toastify/dist/ReactToastify.css";
 import "./styles/index.css";
@@ -53,6 +54,11 @@ ReactDOM.render(
         path="/app/explore"
         exact
         render={(props) => <Explore {...props} />}
+      />
+      <Route
+        path="/app/settings"
+        exact
+        render={(props) => <Settings {...props} />}
       />
     </Switch>
   </BrowserRouter>,

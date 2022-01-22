@@ -429,7 +429,7 @@
   display: flex;
   flex-direction: column;
   gap: 2em;
-  padding: 2em 1.5em;
+  padding: 2em 1.5em 0;
   height: 89vh;
   overflow: hidden;
 }
@@ -452,6 +452,7 @@
   gap: 2.5em;
   overflow-y: auto;
   flex-wrap: wrap;
+  padding: 1em;
 }
 
 .add-friend {
@@ -467,4 +468,123 @@
 
 .add-friend img {
   width: 50%;
+}
+
+/* Settings */
+.settings-wrapper {
+  display: flex;
+  padding: 2em 0 0;
+  width: 75%;
+  margin: 0 auto;
+  height: 88vh;
+}
+
+.side-pane {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+  padding-top: 3em;
+  padding-left: 5em;
+  padding-right: 5em;
+  color: var(--border);
+  box-shadow: 0 0 1.5px 3px var(--bg);
+}
+
+.side-pane p {
+  cursor: pointer;
+}
+
+.side-pane p:hover {
+  color: var(--white);
+}
+
+.border {
+  padding: 1em;
+  border-right: 1px solid var(--primary);
+}
+
+.settings-body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 70%;
+}
+
+.setting-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2em;
+  height: 90%;
+  width: 450px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background-color: var(--primary);
+}
+
+.setting-container .username-wrapper {
+  font-size: 0.9em;
+  padding: 0.3em 0.5em;
+  width: 100%;
+  border-bottom: 1px solid var(--border);
+}
+
+.setting-container .user-image-wrapper img {
+  width: 80px;
+}
+
+.setting-container .user-bio-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 35%;
+  width: 300px;
+  gap: 0.5em;
+}
+
+.setting-container .user-bio-wrapper textarea {
+  background: none;
+  outline: none;
+  padding: 0.6em 1em;
+  border: 1px solid var(--border);
+  border-radius: 0.5em;
+  color: var(--border);
+  height: 100%;
+  min-height: 120px;
+  width: 100%;
+  resize: vertical;
+  font-family: "Nanum Gothic", sans-serif;
+}
+
+.setting-container .toggle-options-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  height: 15%;
+}
+
+.setting-container .toggle-options-wrapper .toggle-option {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 33%;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.toggle-option .toggle-label {
+  color: var(--border);
+  font-size: 0.8em;
+}
+
+.profile.profileAccent {
+  color: var(--white);
+}
+
+.interest.interestAccent {
+  color: var(--white);
+}
+
+.language.languageAccent {
+  color: var(--white);
 }

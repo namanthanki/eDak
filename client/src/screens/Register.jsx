@@ -5,7 +5,6 @@ import axios from "axios";
 import { useHistory } from "react-router-dom";
 import { Redirect } from "react-router-dom";
 import { arrTopics, arrLanguages } from "../helpers/data";
-import Avatar from "@atlaskit/avatar";
 
 import dotenv from "dotenv";
 dotenv.config({
@@ -105,7 +104,7 @@ const Register = () => {
       }
     }
     if (count === 2) {
-      if ((username && bio && dateOfBirth && gender)) {
+      if (username && bio && dateOfBirth && gender) {
         if (gender === "-Select-") {
           toast.error("Please Select Your Gender");
           setCount(2);
@@ -237,11 +236,9 @@ const Register = () => {
           <form>
             <div className="form-wrapper">
               <div className="field-wrapper user-img">
-                <Avatar
+                <img
                   src={`https://avatars.dicebear.com/api/bottts/${username}.svg`}
-                  appearance="circle"
-                  size="xlarge"
-                  name={username}
+                  alt="userProfileImage"
                 />
               </div>
               <div className="field-wrapper">
