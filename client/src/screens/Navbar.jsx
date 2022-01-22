@@ -10,10 +10,10 @@ import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined
 import CreateIcon from "@mui/icons-material/Create";
 import LogoutIcon from "@mui/icons-material/Logout";
 import axios from "axios";
+import { useEffect, useState } from "react";
 
 const Navbar = () => {
   const history = useHistory();
-
   const [responseData, setResponseData] = useState();
 
   useEffect(() => {
@@ -24,7 +24,7 @@ const Navbar = () => {
         setResponseData(res.data.user.userProfileImage);
       });
   }, []);
-
+            
   return (
     <div className="nav-wrapper">
       <div className="logo-wrapper">

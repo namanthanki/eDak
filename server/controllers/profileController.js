@@ -26,4 +26,17 @@ const profileController = async (req, res) => {
         });
 }
 
-export { profileController };
+const searchUserController = async (req, res) => {
+    const { id } = req.params;
+    const keyword = req.query.username ? {
+        $or: [
+            { username: {$regex: req.query.username, $options: "i"} },
+            { email: {$regex: req.query.username, $options: "i"} }
+        ]
+    } : {}
+
+    const users = await User.find(keyword).find({_id: {$ne: id}});
+    res.send(users);
+}
+
+export { profileController, searchUserController };
