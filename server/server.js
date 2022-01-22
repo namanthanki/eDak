@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 import express from "express";
 import morgan from "morgan";
 import profileRouter from "./routes/profile.js";
+import chatRouter from "./routes/chat.js";
 
 import { connectDatabase } from "./config/db.js";
 
@@ -16,6 +17,8 @@ const app = express();
 connectDatabase();
 
 app.use(bodyParser.json());
+app.enable("etag");
+app.set("etag", "strong");
 
 if(process.env.NODE_ENV === "development") {
     app.use(cors({
@@ -27,6 +30,7 @@ if(process.env.NODE_ENV === "development") {
 
 app.use("/api", authRouter);
 app.use("/user", profileRouter);
+app.use("/user/chat/", chatRouter);
 
 app.use((req, res, next) => {
     res.status(404).json({
