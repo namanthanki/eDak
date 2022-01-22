@@ -11,6 +11,7 @@ import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined
 import CreateIcon from "@mui/icons-material/Create";
 import LogoutIcon from "@mui/icons-material/Logout";
 import axios from "axios";
+import { useEffect, useState } from "react";
 
 const Navbar = () => {
   const history = useHistory();
@@ -18,15 +19,16 @@ const Navbar = () => {
     history.push("/app");
   };
 
-  let [responseData, setResponseData] = React.useState();
-
+  let [responseData, setResponseData] = useState();
   const id = isAuth()._id;
-  axios
+
+  useEffect(() => {  
+    axios
     .get(`http://localhost:5000/user/${id}/profile_picture`)
     .then((res) => {
       setResponseData(res.data.user.userProfileImage);
     })
-
+  }, []);
 
   return (
     <div className="nav-wrapper">
