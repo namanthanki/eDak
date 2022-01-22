@@ -118,10 +118,13 @@ a {
 }
 
 .accessibility-wrapper img {
-  width: 3vw;
-  min-width: 50px;
+  width: 35px;
 }
 
 .accessibility-wrapper #logout {
-  margin-bottom: 6px;
+  margin-bottom: 3px;
+}
+
+.accessibility-wrapper .access-item {
+  margin-top: 2px;
 }
