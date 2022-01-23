@@ -6,6 +6,7 @@ import express from "express";
 import morgan from "morgan";
 import profileRouter from "./routes/profile.js";
 import chatRouter from "./routes/chat.js";
+import messageRouter from "./routes/message.js";
 
 import { connectDatabase } from "./config/db.js";
 
@@ -31,6 +32,7 @@ if(process.env.NODE_ENV === "development") {
 app.use("/api", authRouter);
 app.use("/user", profileRouter);
 app.use("/user/chat/", chatRouter);
+app.use("/user/message", messageRouter)
 
 app.use((req, res, next) => {
     res.status(404).json({
