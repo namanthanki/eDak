@@ -43,7 +43,8 @@ const Login = ({ history }) => {
           });
         })
         .catch((err) => {
-          toast.error(err.response.data.error);
+          // toast.error(err.response.data.error);
+          console.log("Error");
         });
     } else {
       toast.error("Please fill all fields");
