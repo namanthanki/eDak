@@ -13,16 +13,18 @@ const ChatProvider = ({ children }) => {
   const [selectedMessage, setSelectedMessage] = useState();
   const [selectedMessageData, setSelectedMessageData] = useState();
   const [socketConnected, setSocketConnected] = useState(false);
+  const [component, setComponent] = useState("defaultView");
+  const [message_id, setMessage_id] = useState();
 
-//  const history = useHistory();
+  //  const history = useHistory();
 
-//   useEffect(() => {
-//     const userInfo = JSON.parse(localStorage.getItem("userInfo"));
-//     setUser(userInfo);
+  //   useEffect(() => {
+  //     const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+  //     setUser(userInfo);
 
-//     if (!userInfo) history.push("/");
-//     // eslint-disable-next-line react-hooks/exhaustive-deps
-//   }, [history]);
+  //     if (!userInfo) history.push("/");
+  //     // eslint-disable-next-line react-hooks/exhaustive-deps
+  //   }, [history]);
 
   return (
     <ChatContext.Provider
@@ -44,10 +46,13 @@ const ChatProvider = ({ children }) => {
         socketConnected,
         setSocketConnected,
         notification,
-        setNotification
-      }}
-    >
-      { children }
+        component,
+        setComponent,
+        setNotification,
+        message_id,
+        setMessage_id,
+      }}>
+      {children}
     </ChatContext.Provider>
   );
 };
