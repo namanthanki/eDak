@@ -4,12 +4,18 @@ import { Redirect } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { ChatState } from "../context/ChatProvider";
 import PeopleAltOutlinedIcon from "@mui/icons-material/PeopleAltOutlined";
-import user from "../assets/user.png";
-import illustration from "../assets/illustration.svg";
+// import user from "../assets/user.png";
+// import illustration from "../assets/illustration.svg";
 import { isAuth } from "../helpers/auth";
 import axios from "axios";
 import { toast, ToastContainer} from "react-toastify";
 import * as moment from "moment";
+import io from "socket.io-client";
+
+const ENDPOINT = `http://localhost:5000`;
+let socket;
+let selectedChatCompare;
+const user = isAuth();
 
 const Write = () => {
   const len = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
@@ -20,7 +26,7 @@ const Write = () => {
 
   let date = moment().format("DD-MM-YYYY");
 
-  const { selectedChat, setSelectedChat, chats, setChats, messages, setMessages, newMessage, setNewMessage} = ChatState();
+  const { selectedChat, setSelectedChat, chats, setChats, messages, setMessages, newMessage, setNewMessage, socketConnected, setSocketConnected } = ChatState();
 
   const fetchChats = async () => {
     try {
@@ -41,6 +47,12 @@ const Write = () => {
     fetchChats();
     console.log(chats);
   }, [])
+
+  useEffect(() => {
+    socket = io(ENDPOINT);
+    socket.emit("setup", user);
+    socket.on("connection", () => setSocketConnected(true) )
+  }, []);
 
   const sendMessage = async (e) => {
     e.preventDefault();
@@ -63,6 +75,7 @@ const Write = () => {
 
         setNewMessage("");
         setMessages([...messages, data]);
+        socket.emit("new message", data);
         toast.success("Sent Successfully!");
       } catch(err) {
         console.log(err.message);
