@@ -17,8 +17,10 @@ import Settings from "./screens/Settings";
 import "react-toastify/dist/ReactToastify.css";
 import "./styles/index.css";
 import "./styles/Components.css";
+import ChatProvider from "./context/ChatProvider";
 
 ReactDOM.render(
+  <ChatProvider>
   <BrowserRouter>
     <Switch>
       <Route path="/" exact render={(props) => <App {...props} />} />
@@ -61,6 +63,7 @@ ReactDOM.render(
         render={(props) => <Settings {...props} />}
       />
     </Switch>
-  </BrowserRouter>,
+  </BrowserRouter>
+  </ChatProvider>,
   document.getElementById("root")
 );
