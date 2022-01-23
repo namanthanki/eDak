@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Switch from "react-switch";
-import { MultiSelect } from "react-multi-select-component";
+// import { MultiSelect } from "react-multi-select-component";
 
 import Navbar from "./Navbar";
 import { isAuth } from "../helpers/auth";
@@ -130,12 +130,12 @@ const Settings = () => {
                 <h3>Interest</h3>
               </div>
               <div className="user-bio-wrapper">
-                <MultiSelect
+                {/* <MultiSelect
                   options={options}
                   value={selected}
                   onChange={setSelected}
                   labelledBy="Interests"
-                />
+                /> */}
               </div>
             </div>
           ) : null}

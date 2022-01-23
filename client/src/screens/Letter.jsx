@@ -1,48 +1,149 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Navbar from "./Navbar";
 import { Redirect } from "react-router-dom";
-
+import { ChatState } from "../context/ChatProvider.jsx";
 import PeopleAltOutlinedIcon from "@mui/icons-material/PeopleAltOutlined";
 import user from "../assets/user.png";
 import illustration from "../assets/illustration.svg";
 import { useHistory } from "react-router";
 import { isAuth } from "../helpers/auth";
+import axios from "axios"
+import { toast, ToastContainer } from "react-toastify";
 
-const Write = () => {
+const Letter = () => {
   const history = useHistory();
   const redirect = () => {
     history.push("/app");
   };
   const len = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+
+  const { selectedChat, setSelectedChat, messages, setMessages, chats, setChats, selectedMessage, setSelectedMessage, selectedMessageData, setSelectedMessageData } = ChatState();
+  const fetchChats = async () => {
+    try {
+      const id = isAuth()._id;
+    
+      const { data } = await axios.get(`http://localhost:5000/user/chat/${id}/`);
+      setChats(data);
+    } catch(err) {
+      toast.error("Failed to Load Chats");
+    }
+  }
+
+  const fetchMessage = async () => {
+    if(!selectedChat) return;
+
+    try {
+      const message_id = selectedMessage;
+      const { data } = await axios.get(`http://localhost:5000/user/message/read/${message_id}/`);
+      setSelectedMessageData(data);
+    } catch(err) {
+        toast.error("Failed to Retrieve Message");
+    }
+  }
+
+  const getSender = (users) => {
+    return users[0]._id === isAuth()._id ? users[1].username : users[0].username;
+  }
+
+  const getSenderImage = (users) => {
+    return users[0]._id === isAuth()._id ? users[1].userProfileImage : users[0].userProfileImage;
+  }
+
+  useEffect(() => {
+    fetchChats();
+    console.log(chats);
+  }, [])
+
+  useEffect(() => {
+    fetchMessage();
+  }, [selectedMessageData]);
+
   return (
     <div>
       {isAuth() ? null : <Redirect to="/login" />}
       <Navbar />
       <section className="home-showcase">
-        <div className="friends-list">
+      <div className="friends-list">
           <div className="filter-wrapper">
             <div className="friends-count">
               <PeopleAltOutlinedIcon />
               <h3>Friends</h3>
-              <p className="count">50</p>
+              <p className="count"> </p>
             </div>
             <button className="btn">Filter</button>
           </div>
-          <div className="list-wrapper">
-            {len.map((i) => (
-              <div className="friends" key={i} onClick={redirect}>
-                <div className="friend-details">
-                  <h3>friendname</h3>
-                  <p>Country</p>
-                </div>
-                <div className="friend-image">
-                  <img src={user} alt="user" />
-                </div>
-              </div>
-            ))}
-          </div>
+          {
+            chats ? 
+                  (
+                    <div className="list-wrapper">
+                      {
+                        chats.map((chat) => {
+                          return (
+                            <div onClick={() => setSelectedChat(chat)} className="friends" key={chat._id}>
+                              <div className="friend-details">
+                                <h3>{ getSender(chat.users) }</h3>
+                                <p>Country</p>
+                              </div>
+                              <div className="friend-image">
+                                <img src={getSenderImage(chat.users)} alt="user" />
+                              </div>
+                            </div>
+                          )
+                        })
+                      }
+                    </div>
+                  ) : null
+          }
         </div>
         <div className="friend-letters">
+          {
+            selectedChat ?
+              (
+                <>
+                  <div className="letters-header">
+                    <div className="user-details">
+                      <h2>{ getSender(selectedChat.users) }</h2>
+                      <div className="sub-details">
+                        <p>Country</p>
+                        <p>Birthdate</p>
+                      </div>
+                    </div>
+                    <div className="user-image">
+                      <img src={getSenderImage(selectedChat.users)} alt="profile" />
+                    </div>
+                  </div>
+                  <div className="opened-letter-wrapper">
+                    <div className="opened-letter">
+                      <div className="to-details">
+                        <div>
+                          <h2>To: Username</h2>
+                          <p>Date</p>
+                        </div>
+                      </div>
+                      <div className="writing-area">
+                        <p> 
+                          { selectedMessageData ? (selectedMessageData.content) : null }
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </>
+              ) : 
+              (
+                <h1> Click on a Friend to View Letters </h1>
+              )
+          }
+        </div>
+      </section>
+    </div>
+  );
+};
+
+export default Letter;
+
+
+/*
+<div className="friend-letters">
           <div className="letters-header">
             <div className="user-details">
               <h2>friendname</h2>
@@ -99,9 +200,4 @@ const Write = () => {
             </div>
           </div>
         </div>
-      </section>
-    </div>
-  );
-};
-
-export default Write;
+*/

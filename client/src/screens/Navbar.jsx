@@ -10,7 +10,6 @@ import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined
 import CreateIcon from "@mui/icons-material/Create";
 import LogoutIcon from "@mui/icons-material/Logout";
 import axios from "axios";
-import { useEffect, useState } from "react";
 
 const Navbar = () => {
   const history = useHistory();
