@@ -4,17 +4,23 @@ import { useHistory } from "react-router";
 import { Redirect } from "react-router-dom";
 import { isAuth } from "../helpers/auth";
 import PeopleAltOutlinedIcon from "@mui/icons-material/PeopleAltOutlined";
-import user from "../assets/user.png";
+// import user from "../assets/user.png";
 import illustration from "../assets/illustration.svg";
 import { ChatState } from "../context/ChatProvider.jsx";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
+import io from "socket.io-client";
+
+const ENDPOINT = `http://localhost:5000`;
+let socket;
+let selectedChatCompare;
+const user = isAuth();
 
 const Home = () => {
   const history = useHistory();
   
-  const { selectedChat, setSelectedChat, messages, setMessages,chats, setChats, selectedMessage, setSelectedMessage } = ChatState();
-  
+  const { selectedChat, setSelectedChat, messages, setMessages,chats, setChats, selectedMessage, setSelectedMessage, socketConnected, setSocketConnected, notification, setNotification } = ChatState();
+
   const redirectLetter = (id) => {
     setSelectedMessage(id);
     history.push("/app/letter");
@@ -39,6 +45,8 @@ const Home = () => {
       const { data } = await axios.get(`http://localhost:5000/user/message/${chat_id}/`);
       console.log(messages);
       setMessages(data);
+
+      socket.emit("join chat", selectedChat._id);
     } catch(err) {
         toast.error("Failed to Retrieve Messages");
     }
@@ -59,7 +67,28 @@ const Home = () => {
 
   useEffect(() => {
     fetchMessages();
+
+    selectedChatCompare = selectedChat;
   }, [selectedChat]);
+
+  useEffect(() => {
+    socket = io(ENDPOINT);
+    socket.emit("setup", user);
+    socket.on("connection", () => setSocketConnected(true) )
+  }, []);
+
+  useEffect(() => {
+    socket.on("message received", (new_msg_received) => {
+      if(!selectedChatCompare || selectedChatCompare._id !== new_msg_received.chat._id) {
+        if(!notification.includes(new_msg_received)) {
+          setNotification([new_msg_received, ...notification]);
+        }  
+      }
+      else {
+        setMessages([...messages, new_msg_received]);
+      }
+    })
+  })
 
   return (
     <div>
