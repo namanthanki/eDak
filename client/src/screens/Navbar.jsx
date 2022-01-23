@@ -4,12 +4,15 @@ import { logout } from "../helpers/auth";
 import { Link } from "react-router-dom";
 import { isAuth } from "../helpers/auth";
 
+import { ChatState } from "../context/ChatProvider.jsx";
+
 import logo from "../assets/logo.svg";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined";
 import CreateIcon from "@mui/icons-material/Create";
 import LogoutIcon from "@mui/icons-material/Logout";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const Navbar = () => {
   const history = useHistory();
@@ -23,14 +26,19 @@ const Navbar = () => {
         setResponseData(res.data.user.userProfileImage);
       });
   }, []);
-            
+
+  const { setComponent, selectedChat } = ChatState();
+
   return (
     <div className="nav-wrapper">
       <div className="logo-wrapper">
         <img
           src={logo}
           alt="logo"
-          onClick={() => history.push("/app")}
+          onClick={() => {
+            history.push("/app");
+            setComponent("defaultView");
+          }}
           className="logo"
         />
       </div>
@@ -38,12 +46,16 @@ const Navbar = () => {
         <Link to="/app/explore">
           <PersonAddIcon className="access-item" />
         </Link>
-        <Link to="/">
-          <NotificationsOutlinedIcon className="access-item" />
-        </Link>
-        <Link to="/app/write">
-          <CreateIcon className="access-item" />
-        </Link>
+        <NotificationsOutlinedIcon className="access-item" />
+        <CreateIcon
+          className="access-item"
+          onClick={() => {
+            selectedChat
+              ? setComponent("WriteLetter")
+              : toast.error("Select a chat First");
+          }}
+          style={{ cursor: "pointer" }}
+        />
         <LogoutIcon
           onClick={() => {
             logout(() => {
