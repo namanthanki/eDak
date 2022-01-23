@@ -6,12 +6,13 @@ const ChatContext = createContext({});
 const ChatProvider = ({ children }) => {
   const [selectedChat, setSelectedChat] = useState();
   const [user, setUser] = useState();
-//   const [notification, setNotification] = useState([]);
+  const [notification, setNotification] = useState([]);
   const [chats, setChats] = useState();
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState();
   const [selectedMessage, setSelectedMessage] = useState();
   const [selectedMessageData, setSelectedMessageData] = useState();
+  const [socketConnected, setSocketConnected] = useState(false);
 
 //  const history = useHistory();
 
@@ -39,7 +40,11 @@ const ChatProvider = ({ children }) => {
         selectedMessage,
         setSelectedMessage,
         selectedMessageData,
-        setSelectedMessageData
+        setSelectedMessageData,
+        socketConnected,
+        setSocketConnected,
+        notification,
+        setNotification
       }}
     >
       { children }
