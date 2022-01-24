@@ -21,19 +21,14 @@ const user = isAuth();
 const Home = () => {
   const {
     selectedChat,
-    setSelectedChat,
     messages,
     setMessages,
     chats,
     setChats,
-    selectedMessage,
-    setSelectedMessage,
-    socketConnected,
     setSocketConnected,
     notification,
     setNotification,
     component,
-    setComponent,
   } = ChatState();
 
   const fetchChats = async () => {
@@ -53,6 +48,7 @@ const Home = () => {
     socket = io(ENDPOINT);
     socket.emit("setup", user);
     socket.on("connection", () => setSocketConnected(true));
+    // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
@@ -73,6 +69,7 @@ const Home = () => {
   useEffect(() => {
     fetchChats();
     console.log(chats);
+    // eslint-disable-next-line
   }, []);
 
   const fetchMessages = async () => {
@@ -94,8 +91,9 @@ const Home = () => {
 
   useEffect(() => {
     fetchMessages();
-
+    // eslint-disable-next-line
     selectedChatCompare = selectedChat;
+    // eslint-disable-next-line
   }, [selectedChat]);
 
   return (
@@ -105,9 +103,11 @@ const Home = () => {
       <ToastContainer />
       <section className="home-showcase">
         <Friends chats={chats} />
-        <div className="friend-letters">
+        <div className={`friend-letters ${component}`}>
           {component === "defaultView" ? (
-            <h1>Click on a Friend to View Letters</h1>
+            <h1 className="default-view-text">
+              Click on a Friend to View Letters
+            </h1>
           ) : null}
           {selectedChat ? (
             <>

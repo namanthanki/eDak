@@ -26,6 +26,7 @@ const Letter = () => {
 
   useEffect(() => {
     fetchMessage();
+    // eslint-disable-next-line
   }, []);
 
   return (

@@ -12,15 +12,8 @@ const Settings = () => {
   const [birthDate, setBirthDate] = useState(true);
   const [setting, setSetting] = useState("profile");
   const [accent, setAccent] = useState("profileAccent");
-  const [selected, setSelected] = useState([]);
 
   const [age, setAge] = useState(true);
-
-  const options = [
-    { value: "value-1", label: "label-1" },
-    { value: "value-2", label: "label-2" },
-    { value: "value-3", label: "label-3" },
-  ];
 
   useEffect(() => {
     const id = isAuth()._id;

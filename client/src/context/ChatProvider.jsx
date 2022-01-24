@@ -1,5 +1,5 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
+import React, { createContext, useContext, useState } from "react";
+// import { useHistory } from "react-router-dom";
 
 const ChatContext = createContext({});
 

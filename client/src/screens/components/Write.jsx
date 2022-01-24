@@ -10,7 +10,6 @@ import { toast, ToastContainer } from "react-toastify";
 
 const ENDPOINT = `http://localhost:5000`;
 let socket;
-let selectedChatCompare;
 const user = isAuth();
 
 const Write = () => {
@@ -30,6 +29,7 @@ const Write = () => {
     socket = io(ENDPOINT);
     socket.emit("setup", user);
     socket.on("connection", () => setSocketConnected(true));
+    // eslint-disable-next-line
   }, []);
 
   const sendMessage = async (e) => {

@@ -1,7 +1,5 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { ChatState } from "../../context/ChatProvider.jsx";
-import axios from "axios";
-import { toast } from "react-toastify";
 
 const Letters = () => {
   const {

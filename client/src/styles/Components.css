@@ -299,12 +299,28 @@
   width: 40px;
 }
 
+.friend-letters.defaultView {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+  height: inherit;
+  padding: 0 1em;
+}
+
 .friend-letters {
   display: flex;
   flex-direction: column;
   width: 80%;
   height: inherit;
   padding: 0 1em;
+}
+
+.friend-letters .default-view-text {
+  color: var(--border);
+  font-family: "Montserrat", sans-serif;
+  font-weight: 200;
 }
 
 .letters-header {
@@ -442,6 +458,21 @@
 .explore-header h2 {
   font-family: "Montserrat", sans-serif;
   font-weight: 800;
+}
+
+.explore-search-bar {
+  background: none;
+  outline: none;
+  border: 1px solid var(--border);
+  padding: 0 0.5em;
+  border-radius: 0.3em;
+  color: var(--white);
+  width: 30%;
+}
+
+.explore-search-bar:hover,
+.explore-search-bar:focus {
+  border: 1px solid var(--white);
 }
 
 .explore-body {

@@ -12,9 +12,9 @@ const Friends = ({ chats }) => {
         <div className="friends-count">
           <PeopleAltOutlinedIcon />
           <h3>Friends</h3>
-          <p className="count"> </p>
+          <p className="count">{chats ? chats.length : 0}</p>
         </div>
-        <button className="btn">Filter</button>
+        {/* <button className="btn">Filter</button> */}
       </div>
       {chats ? (
         <div className="list-wrapper">
