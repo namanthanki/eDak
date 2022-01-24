@@ -16,9 +16,9 @@ import Write from "./components/Write";
 const ENDPOINT = `http://localhost:5000`;
 let socket;
 let selectedChatCompare;
-const user = isAuth();
 
 const Home = () => {
+  const user = isAuth();
   const {
     selectedChat,
     messages,
@@ -68,7 +68,6 @@ const Home = () => {
 
   useEffect(() => {
     fetchChats();
-    console.log(chats);
     // eslint-disable-next-line
   }, []);
 

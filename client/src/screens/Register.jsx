@@ -5,6 +5,7 @@ import axios from "axios";
 import { useHistory } from "react-router-dom";
 import { Redirect } from "react-router-dom";
 import { arrTopics, arrLanguages } from "../helpers/data";
+import * as moment from "moment";
 
 import dotenv from "dotenv";
 dotenv.config({
@@ -38,6 +39,12 @@ const Register = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (formData.languages.length < 1) {
+      toast.error(
+        `${formData.languages.length} Languages Selected, Minimum 1 Required!`
+      );
+      return;
+    }
     let id;
     if (email && passwordInput) {
       if (passwordInput === confirmPassword) {
@@ -109,6 +116,10 @@ const Register = () => {
           toast.error("Please Select Your Gender");
           setCount(2);
         }
+        if (!moment(dateOfBirth).isValid()) {
+          toast.error("Invalid Date");
+          setCount(2);
+        }
       } else {
         toast.error("Please Fill in All Fields");
         setCount(2);
@@ -117,14 +128,14 @@ const Register = () => {
     if (count === 3) {
       if (formData.interests.length < 5) {
         toast.error(
-          `Only ${formData.interests.length} Topics Added, Minimum 5 Required!`
+          `${formData.interests.length} Topics Added, Minimum 5 Required!`
         );
         setCount(3);
       }
     } else if (count === 4) {
       if (formData.languages.length < 1) {
         toast.error(
-          `Only ${formData.languages.length} Languages Selected, Minimum 1 Required!`
+          `${formData.languages.length} Languages Selected, Minimum 1 Required!`
         );
         setCount(4);
       }
@@ -264,6 +275,9 @@ const Register = () => {
                   type="date"
                   name="dateOfBirth"
                   required
+                  min="1940-01-01"
+                  max="2008-12-31"
+                  onKeyDown={(e) => e.preventDefault()}
                   onChange={handleChange("dateOfBirth")}
                 />
               </div>

@@ -4,7 +4,7 @@ import { ChatState } from "../../context/ChatProvider.jsx";
 import PeopleAltOutlinedIcon from "@mui/icons-material/PeopleAltOutlined";
 
 const Friends = ({ chats }) => {
-  const { setSelectedChat, setComponent } = ChatState();
+  const { setSelectedChat, setComponent, location } = ChatState();
 
   return (
     <div className="friends-list">
@@ -12,7 +12,7 @@ const Friends = ({ chats }) => {
         <div className="friends-count">
           <PeopleAltOutlinedIcon />
           <h3>Friends</h3>
-          <p className="count">{chats ? chats.length : 0}</p>
+          <p className="count">({chats ? chats.length : 0})</p>
         </div>
         {/* <button className="btn">Filter</button> */}
       </div>
@@ -29,7 +29,7 @@ const Friends = ({ chats }) => {
                 key={chat._id}>
                 <div className="friend-details">
                   <h3>{getSender(chat.users)}</h3>
-                  <p>Country</p>
+                  <p>{location}</p>
                 </div>
                 <div className="friend-image">
                   <img src={getSenderImage(chat.users)} alt="user" />

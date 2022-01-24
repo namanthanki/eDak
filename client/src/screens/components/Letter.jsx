@@ -1,6 +1,7 @@
 import { ChatState } from "../../context/ChatProvider.jsx";
 import { useEffect } from "react";
 import axios from "axios";
+import * as moment from "moment";
 
 const Letter = () => {
   const {
@@ -34,8 +35,14 @@ const Letter = () => {
       <div className="opened-letter">
         <div className="to-details">
           <div>
-            <h2>To: Username</h2>
-            <p>Date</p>
+            <h2>
+              {selectedMessageData ? selectedMessageData.sender.username : null}
+            </h2>
+            <p>
+              {selectedMessageData
+                ? moment(selectedMessageData.createdAt).format("DD-MM-YYYY")
+                : null}
+            </p>
           </div>
         </div>
         <div className="writing-area">

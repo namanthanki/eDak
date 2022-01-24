@@ -1,5 +1,6 @@
 import React from "react";
 import { ChatState } from "../../context/ChatProvider.jsx";
+import CreateIcon from "@mui/icons-material/Create";
 
 const Letters = () => {
   const {
@@ -18,9 +19,9 @@ const Letters = () => {
 
   return (
     <>
-      <div className="letters">
-        {messages &&
-          messages.map((msg) => (
+      {messages.length !== 0 ? (
+        <div className="letters">
+          {messages.map((msg) => (
             <div
               className="letter"
               onClick={() => renderLetter(msg._id)}
@@ -33,7 +34,23 @@ const Letters = () => {
               </div>
             </div>
           ))}
-      </div>
+        </div>
+      ) : (
+        <div className={"defaultView letters"}>
+          <h1 className="default-view-text" style={{ textAlign: "center" }}>
+            No Letters Available, <br /> Click on the
+            <CreateIcon
+              fontSize="small"
+              sx={{
+                color: "#eeeeeeab",
+                fontSize: "18px",
+                margin: "0 5px",
+              }}
+            />
+            to Send Letters.
+          </h1>
+        </div>
+      )}
     </>
   );
 };

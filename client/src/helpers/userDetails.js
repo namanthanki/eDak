@@ -9,3 +9,9 @@ export const getSenderImage = (users) => {
     ? users[1].userProfileImage
     : users[0].userProfileImage;
 };
+
+export const getSenderDob = (users) => {
+  return users[0]._id === isAuth._id
+    ? users[0].dateOfBirth
+    : users[1].dateOfBirth;
+};

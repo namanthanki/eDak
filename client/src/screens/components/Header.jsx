@@ -1,4 +1,9 @@
-import { getSender, getSenderImage } from "../../helpers/userDetails";
+import {
+  getSender,
+  getSenderImage,
+  getSenderDob,
+} from "../../helpers/userDetails";
+import * as moment from "moment";
 
 const Header = ({ users }) => {
   return (
@@ -7,7 +12,7 @@ const Header = ({ users }) => {
         <h2>{getSender(users)}</h2>
         <div className="sub-details">
           <p>Country</p>
-          <p>Birthdate</p>
+          <p>{`Age: ${moment().diff(getSenderDob(users), "years", false)}`}</p>
         </div>
       </div>
       <div className="user-image">

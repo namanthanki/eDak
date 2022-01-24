@@ -4,8 +4,6 @@ import { logout } from "../helpers/auth";
 import { Link } from "react-router-dom";
 import { isAuth } from "../helpers/auth";
 
-import { ChatState } from "../context/ChatProvider.jsx";
-
 import logo from "../assets/logo.svg";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined";
@@ -13,10 +11,13 @@ import CreateIcon from "@mui/icons-material/Create";
 import LogoutIcon from "@mui/icons-material/Logout";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { ChatState } from "../context/ChatProvider.jsx";
 
 const Navbar = () => {
   const history = useHistory();
   const [responseData, setResponseData] = useState();
+  let lat,
+    lon = "";
 
   useEffect(() => {
     const id = isAuth()._id;
@@ -27,7 +28,33 @@ const Navbar = () => {
       });
   }, []);
 
-  const { setComponent, selectedChat } = ChatState();
+  const { setComponent, selectedChat, setLocation, location } = ChatState();
+
+  const getLocation = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(showPosition);
+    }
+  };
+
+  const showPosition = (pos) => {
+    lat = pos.coords.latitude;
+    lon = pos.coords.longitude;
+
+    let config = {
+      method: "get",
+      url: `https://api.geoapify.com/v1/geocode/reverse?lat=${lat}&lon=${lon}&apiKey=cf81bc2d78334d2f8e8e3328618f3d00`,
+      headers: {},
+    };
+
+    axios(config)
+      .then((res) => {
+        setLocation(res.data.features[0].properties.country);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      })
+      .finally(() => console.log(location));
+  };
 
   return (
     <div className="nav-wrapper">
@@ -43,6 +70,9 @@ const Navbar = () => {
         />
       </div>
       <div className="accessibility-wrapper">
+        <button type="button" onClick={getLocation} className="btn">
+          Location
+        </button>
         <Link to="/app/explore">
           <PersonAddIcon className="access-item" />
         </Link>

@@ -15,6 +15,7 @@ const ChatProvider = ({ children }) => {
   const [socketConnected, setSocketConnected] = useState(false);
   const [component, setComponent] = useState("defaultView");
   const [message_id, setMessage_id] = useState();
+  const [location, setLocation] = useState();
 
   //  const history = useHistory();
 
@@ -51,6 +52,8 @@ const ChatProvider = ({ children }) => {
         setNotification,
         message_id,
         setMessage_id,
+        location,
+        setLocation,
       }}>
       {children}
     </ChatContext.Provider>

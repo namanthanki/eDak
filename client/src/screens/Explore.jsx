@@ -5,6 +5,7 @@ import { ChatState } from "../context/ChatProvider.jsx";
 import { isAuth } from "../helpers/auth";
 import { Redirect, useHistory } from "react-router-dom";
 import axios from "axios";
+import * as moment from "moment";
 
 const Explore = () => {
   const [search, setSearch] = useState("");
@@ -50,6 +51,7 @@ const Explore = () => {
       setSelectedChat(data);
       history.push("/app");
     } catch (err) {
+      console.log(err.message);
       toast.error("Error Fetching Chat Data");
     }
   };
@@ -62,7 +64,11 @@ const Explore = () => {
       <div className="explore-wrapper">
         <div className="explore-header">
           <h2 className="accent">Find Friends</h2>
-          <input value={search} onChange={(e) => setSearch(e.target.value)} className="explore-search-bar"/>
+          <input
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className="explore-search-bar"
+          />
           <button type="button" className="btn" onClick={handleSearch}>
             Search
           </button>
@@ -75,7 +81,16 @@ const Explore = () => {
               onClick={() => createChat(user._id)}>
               <img src={user.userProfileImage} alt="user" />
               <h2>{user.username}</h2>
-              <div className="languages"></div>
+              <div className="languages">
+                <p className="explore-user-details">{user.bio}</p>
+                <p className="explore-user-details" style={{ margin: "5px" }}>
+                  {`Age: ${moment().diff(
+                    user.dateOfBirth,
+                    "years",
+                    false
+                  )} Years Old`}
+                </p>
+              </div>
             </div>
           ))}
         </div>
