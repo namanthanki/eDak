@@ -3,11 +3,12 @@ import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
 import jwt from "jsonwebtoken";
 import { isAuth } from "../helpers/auth";
-import { Redirect } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 import dotenv from "dotenv";
 dotenv.config({
-    path: "../../.env"
+  path: "../../.env",
 });
 
 const Activate = ({ match }) => {
@@ -16,6 +17,8 @@ const Activate = ({ match }) => {
     token: "",
     show: true,
   });
+
+  const history = useHistory();
 
   useEffect(() => {
     let token = match.params.token;
@@ -39,6 +42,7 @@ const Activate = ({ match }) => {
       .then((res) => {
         setFormData({ ...formData, show: false });
         toast.success(res.data.message);
+        history.push("/login");
       })
       .catch((err) => {
         toast.error(err.response.data.error);
@@ -61,9 +65,7 @@ const Activate = ({ match }) => {
             </div>
             <div className="btn-wrapper">
               <button className="btn secondary-btn btn-full">
-                <a href="/register" target="_self">
-                  Sign Up
-                </a>
+                <Link to="/register">Sign Up</Link>
               </button>
             </div>
           </div>

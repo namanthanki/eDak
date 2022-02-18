@@ -667,6 +667,7 @@
   border: 1px solid var(--border);
   border-radius: 6px;
   background-color: var(--primary);
+  padding-bottom: 1em;
 }
 
 .setting-container .username-wrapper {
@@ -717,6 +718,34 @@
   height: 33%;
   align-items: center;
   justify-content: space-between;
+}
+
+.settings-interests-container {
+  height: 90%;
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 1em;
+}
+
+.settings-interests-container h3 {
+  font-size: 1.6em;
+}
+
+.settings-interests-container .filters {
+  overflow-y: auto;
+  height: inherit;
+  justify-content: space-around;
+  padding-left: 10px;
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.settings-interests-container .filters .filter {
+  width: 110px;
 }
 
 .toggle-option .toggle-label {
