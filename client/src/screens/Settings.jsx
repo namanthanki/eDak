@@ -1,13 +1,19 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Switch from "react-switch";
-// import { MultiSelect } from "react-multi-select-component";
 
 import Navbar from "./Navbar";
 import { isAuth } from "../helpers/auth";
+import { arrTopics, arrLanguages } from "../helpers/data";
 
 const Settings = () => {
-  const [responseData, setResponseData] = useState();
+  const [responseData, setResponseData] = useState({
+    username: "",
+    userProfieImage: "",
+    bio: "",
+    interests: [],
+    languages: [],
+  });
   const [lastSeen, setLastSeen] = useState(false);
   const [birthDate, setBirthDate] = useState(true);
   const [setting, setSetting] = useState("profile");
@@ -17,12 +23,21 @@ const Settings = () => {
 
   useEffect(() => {
     const id = isAuth()._id;
-    axios
-      .get(`http://localhost:5000/user/${id}/profile_picture`)
-      .then((res) => {
-        setResponseData(res.data.user.userProfileImage);
+    axios.get(`http://localhost:5000/user/${id}`).then((res) => {
+      console.log(res.data);
+      setResponseData({
+        ...responseData,
+        username: res.data.username,
+        userProfieImage: res.data.userProfileImage,
+        bio: res.data.bio,
+        interests: res.data.interests,
+        languages: res.data.languages,
       });
+    });
+    //eslint-disable-next-line
   }, []);
+
+  console.log(responseData);
 
   return (
     <div>
@@ -59,20 +74,17 @@ const Settings = () => {
           {setting === "profile" ? (
             <div className="setting-container">
               <div className="username-wrapper">
-                <h3>Username</h3>
+                <h3>{responseData.username}</h3>
               </div>
               <div className="user-image-wrapper">
-                <img src={responseData} alt="userProfileImage" />
+                <img
+                  src={responseData.userProfieImage}
+                  alt="userProfileImage"
+                />
               </div>
               <div className="user-bio-wrapper">
                 <label>Bio</label>
-                <textarea>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Velit, magni culpa? Eligendi inventore veritatis culpa ullam
-                  magnam quos id, voluptates unde sed perspiciatis. Iste velit
-                  repudiandae, debitis unde culpa magni atque dolores? Facilis
-                  iure minima eaque nihil. Doloremque, eos consequatur.
-                </textarea>
+                <textarea value={responseData.bio}>{responseData.bio}</textarea>
               </div>
               <div className="toggle-options-wrapper">
                 <div className="toggle-option">
@@ -120,24 +132,79 @@ const Settings = () => {
           {setting === "interests" ? (
             <div className="setting-container">
               <div className="username-wrapper">
-                <h3>Interest</h3>
+                <h3>{responseData.username}</h3>
               </div>
-              <div className="user-bio-wrapper">
-                {/* <MultiSelect
-                  options={options}
-                  value={selected}
-                  onChange={setSelected}
-                  labelledBy="Interests"
-                /> */}
+              <div className="settings-interests-container">
+                <h3 className="accent">Interests</h3>
+                <div className="filters">
+                  {arrTopics.map((filter, index) => (
+                    <div className="filter" key={index}>
+                      {responseData.interests.includes(filter) ? (
+                        <>
+                          <input
+                            type="checkbox"
+                            name={filter}
+                            key={filter}
+                            checked={true}
+                            title="interest"
+                          />
+                          <label>{filter}</label>
+                        </>
+                      ) : (
+                        <>
+                          <input
+                            type="checkbox"
+                            name={filter}
+                            key={filter}
+                            checked={false}
+                            title="interest"
+                          />
+                          <label>{filter}</label>
+                        </>
+                      )}
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           ) : null}
           {setting === "languages" ? (
             <div className="setting-container">
               <div className="username-wrapper">
-                <h3>Language</h3>
+                <h3>{responseData.username}</h3>
               </div>
-              <div className="user-bio-wrapper"></div>
+              <div className="settings-interests-container">
+                <h3 className="accent">Languages</h3>
+                <div className="filters">
+                  {arrLanguages.map((filter, index) => (
+                    <div className="filter" key={index}>
+                      {responseData.languages.includes(filter) ? (
+                        <>
+                          <input
+                            type="checkbox"
+                            name={filter}
+                            key={filter}
+                            checked={true}
+                            title="interest"
+                          />
+                          <label>{filter}</label>
+                        </>
+                      ) : (
+                        <>
+                          <input
+                            type="checkbox"
+                            name={filter}
+                            key={filter}
+                            checked={false}
+                            title="interest"
+                          />
+                          <label>{filter}</label>
+                        </>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
           ) : null}
         </div>
