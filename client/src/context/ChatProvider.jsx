@@ -16,6 +16,14 @@ const ChatProvider = ({ children }) => {
   const [component, setComponent] = useState("defaultView");
   const [message_id, setMessage_id] = useState();
   const [location, setLocation] = useState();
+  const [search, setSearch] = useState("");
+  const [searchResult, setSearchResult] = useState([]);
+  const [filter, setFilter] = useState(false);
+  const [filters, setFilters] = useState({
+    interests: [],
+    languages: [],
+    ageGroup: [],
+  });
 
   //  const history = useHistory();
 
@@ -54,6 +62,14 @@ const ChatProvider = ({ children }) => {
         setMessage_id,
         location,
         setLocation,
+        search,
+        setSearch,
+        searchResult,
+        setSearchResult,
+        filters,
+        setFilters,
+        filter,
+        setFilter,
       }}>
       {children}
     </ChatContext.Provider>
