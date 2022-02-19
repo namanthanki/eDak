@@ -15,3 +15,9 @@ export const getSenderDob = (users) => {
     ? users[0].dateOfBirth
     : users[1].dateOfBirth;
 };
+
+export const getSenderCountry = (users) => {
+  return users[0]._id === isAuth._id
+    ? users[0].location.features[0].properties.country
+    : users[1].location.features[0].properties.country;
+};

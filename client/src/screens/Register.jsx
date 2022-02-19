@@ -13,8 +13,9 @@ dotenv.config({
 });
 
 const Register = () => {
+  // eslint-disable-next-line
   Object.prototype.isEmpty = function () {
-    return Object.keys(this).length == 0;
+    return Object.keys(this).length === 0;
   };
 
   const [formData, setFormData] = useState({
@@ -330,7 +331,7 @@ const Register = () => {
                   name="dateOfBirth"
                   required
                   min="1940-01-01"
-                  max="2008-12-31"
+                  max={`${new Date().getFullYear() - 14}-01-31`}
                   onKeyDown={(e) => e.preventDefault()}
                   onChange={handleChange("dateOfBirth")}
                 />

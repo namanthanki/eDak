@@ -1,4 +1,5 @@
 import React from "react";
+import * as moment from "moment";
 import { ChatState } from "../../context/ChatProvider.jsx";
 
 import AddFriend from "./AddFriend.jsx";
@@ -14,7 +15,19 @@ const ExploreBody = () => {
             return (
               <>
                 {filters.interests.some((u) => user.interests.includes(u)) ||
-                filters.languages.some((u) => user.languages.includes(u)) ? (
+                filters.languages.some((u) => user.languages.includes(u)) ||
+                filters.ageGroup.some((u) =>
+                  u ===
+                    moment()
+                      .diff(user.dateOfBirth, "years", false)
+                      .toString() || u === "55+"
+                    ? moment()
+                        .diff(user.dateOfBirth, "years", false)
+                        .toString() >= u
+                      ? true
+                      : false
+                    : false
+                ) ? (
                   <AddFriend user={user} key={user._id} />
                 ) : null}
               </>

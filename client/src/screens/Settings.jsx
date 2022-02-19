@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import Switch from "react-switch";
+// import { toast, ToastContainer } from "react-toastify";
+// import { Chip } from "@mui/material";
 
 import Navbar from "./Navbar";
 import { isAuth } from "../helpers/auth";
-import { arrTopics, arrLanguages } from "../helpers/data";
+// import { arrTopics, arrLanguages } from "../helpers/data";
+
+// import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 
 const Settings = () => {
   const [responseData, setResponseData] = useState({
@@ -14,12 +17,8 @@ const Settings = () => {
     interests: [],
     languages: [],
   });
-  const [lastSeen, setLastSeen] = useState(false);
-  const [birthDate, setBirthDate] = useState(true);
   const [setting, setSetting] = useState("profile");
   const [accent, setAccent] = useState("profileAccent");
-
-  const [age, setAge] = useState(true);
 
   useEffect(() => {
     const id = isAuth()._id;
@@ -42,6 +41,7 @@ const Settings = () => {
   return (
     <div>
       <Navbar />
+      {/* <ToastContainer /> */}
       <div className="settings-wrapper">
         <div className="side-pane">
           <p
@@ -86,47 +86,6 @@ const Settings = () => {
                 <label>Bio</label>
                 <textarea value={responseData.bio}>{responseData.bio}</textarea>
               </div>
-              <div className="toggle-options-wrapper">
-                <div className="toggle-option">
-                  <span className="toggle-label">Show Last Seen</span>
-                  <Switch
-                    onChange={() => setLastSeen(!lastSeen)}
-                    checked={lastSeen}
-                    onColor="#d65a31"
-                    handleDiameter={8}
-                    uncheckedIcon={false}
-                    checkedIcon={false}
-                    height={15}
-                    width={40}
-                  />
-                </div>
-                <div className="toggle-option">
-                  <span className="toggle-label">Show Birthdate</span>
-                  <Switch
-                    onChange={() => setBirthDate(!birthDate)}
-                    checked={birthDate}
-                    onColor="#d65a31"
-                    handleDiameter={8}
-                    uncheckedIcon={false}
-                    checkedIcon={false}
-                    height={15}
-                    width={40}
-                  />
-                </div>
-                <div className="toggle-option">
-                  <span className="toggle-label">Show Age</span>
-                  <Switch
-                    onChange={() => setAge(!age)}
-                    checked={age}
-                    onColor="#d65a31"
-                    handleDiameter={8}
-                    uncheckedIcon={false}
-                    checkedIcon={false}
-                    height={15}
-                    width={40}
-                  />
-                </div>
-              </div>
             </div>
           ) : null}
           {setting === "interests" ? (
@@ -134,38 +93,7 @@ const Settings = () => {
               <div className="username-wrapper">
                 <h3>{responseData.username}</h3>
               </div>
-              <div className="settings-interests-container">
-                <h3 className="accent">Interests</h3>
-                <div className="filters">
-                  {arrTopics.map((filter, index) => (
-                    <div className="filter" key={index}>
-                      {responseData.interests.includes(filter) ? (
-                        <>
-                          <input
-                            type="checkbox"
-                            name={filter}
-                            key={filter}
-                            checked={true}
-                            title="interest"
-                          />
-                          <label>{filter}</label>
-                        </>
-                      ) : (
-                        <>
-                          <input
-                            type="checkbox"
-                            name={filter}
-                            key={filter}
-                            checked={false}
-                            title="interest"
-                          />
-                          <label>{filter}</label>
-                        </>
-                      )}
-                    </div>
-                  ))}
-                </div>
-              </div>
+              <div className="settings-data-container"></div>
             </div>
           ) : null}
           {setting === "languages" ? (
@@ -173,38 +101,7 @@ const Settings = () => {
               <div className="username-wrapper">
                 <h3>{responseData.username}</h3>
               </div>
-              <div className="settings-interests-container">
-                <h3 className="accent">Languages</h3>
-                <div className="filters">
-                  {arrLanguages.map((filter, index) => (
-                    <div className="filter" key={index}>
-                      {responseData.languages.includes(filter) ? (
-                        <>
-                          <input
-                            type="checkbox"
-                            name={filter}
-                            key={filter}
-                            checked={true}
-                            title="interest"
-                          />
-                          <label>{filter}</label>
-                        </>
-                      ) : (
-                        <>
-                          <input
-                            type="checkbox"
-                            name={filter}
-                            key={filter}
-                            checked={false}
-                            title="interest"
-                          />
-                          <label>{filter}</label>
-                        </>
-                      )}
-                    </div>
-                  ))}
-                </div>
-              </div>
+              <div className="settings-data-container"></div>
             </div>
           ) : null}
         </div>

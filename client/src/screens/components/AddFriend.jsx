@@ -36,7 +36,10 @@ const AddFriend = ({ user }) => {
     }
   };
   return (
-    <div className="add-friend" onClick={() => createChat(user._id)}>
+    <div
+      className="add-friend"
+      onClick={() => createChat(user._id)}
+      key={user._id}>
       <div className="friend-image">
         <img src={user.userProfileImage} alt="friend" />
       </div>

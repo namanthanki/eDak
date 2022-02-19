@@ -23,7 +23,11 @@ const ExploreFilter = () => {
         filters.ageGroup.splice(pop, 1);
       }
     }
-    if (filters.interests.length > 0 || filters.languages.length > 0)
+    if (
+      filters.interests.length > 0 ||
+      filters.languages.length > 0 ||
+      filters.ageGroup.length > 0
+    )
       setFilter(true);
     else setFilter(false);
   };

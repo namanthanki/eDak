@@ -86,6 +86,11 @@ a {
   cursor: pointer;
 }
 
+option {
+  color: var(--white);
+  background-color: var(--bg);
+}
+
 .logo {
   cursor: pointer;
 }
