@@ -12,8 +12,8 @@ export const getSenderImage = (users) => {
 
 export const getSenderDob = (users) => {
   return users[0]._id === isAuth._id
-    ? users[0].dateOfBirth
-    : users[1].dateOfBirth;
+    ? users[1].dateOfBirth
+    : users[0].dateOfBirth;
 };
 
 export const getSenderCountry = (users) => {
