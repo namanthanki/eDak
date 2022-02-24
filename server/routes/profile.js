@@ -4,7 +4,7 @@ import { searchUserController } from "../controllers/profileController.js";
 
 const router = express.Router();
 
-router.get("/:id/profile_picture", profileController);
+router.get("/:id", profileController);
 router.get("/:id/search", searchUserController);
 
 export default router;

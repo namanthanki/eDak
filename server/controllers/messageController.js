@@ -1,3 +1,4 @@
+import schedule from "node-schedule";
 import dotenv from "dotenv";
 dotenv.config({
     path: "./config/config.env"
@@ -6,6 +7,8 @@ dotenv.config({
 import Chat from "../models/Chat.js";
 import Message from "../models/Message.js";
 import User from "../models/User.js";
+
+const date = new Date(2022, 1, 22, 15, 45, 0);
 
 const sendMessagesController = async (req, res) => {
     const sender_id = req.params.id;
@@ -22,24 +25,44 @@ const sendMessagesController = async (req, res) => {
         chat: chat_id
     };
 
-    try {
-        let message = await Message.create(newMessage);
-        message = await message.populate("sender", "username userProfileImage").execPopulate();
-        message = await message.populate("chat").execPopulate();
-        message = await User.populate(message, {
-            path: "chat.users",
-            select: "username userProfilePicture email"
-        });
+    schedule.scheduleJob(date, async () => {
+        try {
+            let message = await Message.create(newMessage);
+            message = await message.populate("sender", "username userProfileImage").execPopulate();
+            message = await message.populate("chat").execPopulate();
+            message = await User.populate(message, {
+                path: "chat.users",
+                select: "username userProfilePicture email"
+            });
+    
+            await Chat.findByIdAndUpdate(req.body.chat_id, {
+                latestMessage: message
+            });
+    
+            res.json(message);
+        } catch(err) {
+            res.status(400);
+            throw new Error(err.message);
+        }
+    });
+    // try {
+    //     let message = await Message.create(newMessage);
+    //     message = await message.populate("sender", "username userProfileImage").execPopulate();
+    //     message = await message.populate("chat").execPopulate();
+    //     message = await User.populate(message, {
+    //         path: "chat.users",
+    //         select: "username userProfilePicture email"
+    //     });
 
-        await Chat.findByIdAndUpdate(req.body.chat_id, {
-            latestMessage: message
-        });
+    //     await Chat.findByIdAndUpdate(req.body.chat_id, {
+    //         latestMessage: message
+    //     });
 
-        res.json(message);
-    } catch(err) {
-        res.status(400);
-        throw new Error(err.message);
-    }
+    //     res.json(message);
+    // } catch(err) {
+    //     res.status(400);
+    //     throw new Error(err.message);
+    // }
 }
 
 const getMessagesController = async (req, res) => {

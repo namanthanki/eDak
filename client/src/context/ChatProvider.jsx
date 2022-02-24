@@ -1,5 +1,5 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
+import React, { createContext, useContext, useState } from "react";
+// import { useHistory } from "react-router-dom";
 
 const ChatContext = createContext({});
 
@@ -13,16 +13,26 @@ const ChatProvider = ({ children }) => {
   const [selectedMessage, setSelectedMessage] = useState();
   const [selectedMessageData, setSelectedMessageData] = useState();
   const [socketConnected, setSocketConnected] = useState(false);
+  const [component, setComponent] = useState("defaultView");
+  const [message_id, setMessage_id] = useState();
+  const [search, setSearch] = useState("");
+  const [searchResult, setSearchResult] = useState([]);
+  const [filter, setFilter] = useState(false);
+  const [filters, setFilters] = useState({
+    interests: [],
+    languages: [],
+    ageGroup: [],
+  });
 
-//  const history = useHistory();
+  //  const history = useHistory();
 
-//   useEffect(() => {
-//     const userInfo = JSON.parse(localStorage.getItem("userInfo"));
-//     setUser(userInfo);
+  //   useEffect(() => {
+  //     const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+  //     setUser(userInfo);
 
-//     if (!userInfo) history.push("/");
-//     // eslint-disable-next-line react-hooks/exhaustive-deps
-//   }, [history]);
+  //     if (!userInfo) history.push("/");
+  //     // eslint-disable-next-line react-hooks/exhaustive-deps
+  //   }, [history]);
 
   return (
     <ChatContext.Provider
@@ -44,10 +54,21 @@ const ChatProvider = ({ children }) => {
         socketConnected,
         setSocketConnected,
         notification,
-        setNotification
-      }}
-    >
-      { children }
+        component,
+        setComponent,
+        setNotification,
+        message_id,
+        setMessage_id,
+        search,
+        setSearch,
+        searchResult,
+        setSearchResult,
+        filters,
+        setFilters,
+        filter,
+        setFilter,
+      }}>
+      {children}
     </ChatContext.Provider>
   );
 };

@@ -5,7 +5,6 @@ import { authenticate, isAuth } from "../helpers/auth";
 import "../styles/Components.css";
 import "../styles/queries.css";
 import { Redirect, Link } from "react-router-dom";
-
 import dotenv from "dotenv";
 dotenv.config({
   path: "../../.env",
@@ -44,6 +43,7 @@ const Login = ({ history }) => {
         })
         .catch((err) => {
           toast.error(err.response.data.error);
+          console.log("Error");
         });
     } else {
       toast.error("Please fill all fields");

@@ -26,9 +26,13 @@ body {
   font-family: "Nanum Gothic", sans-serif;
   background-color: var(--bg);
   height: 100vh;
-  color: #eeeeee;
+  color: var(--white);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+input[type="checkbox"] {
+  accent-color: var(--accent);
 }
 
 .container {
@@ -80,6 +84,11 @@ a {
   text-decoration: none;
   color: var(--white);
   cursor: pointer;
+}
+
+option {
+  color: var(--white);
+  background-color: var(--bg);
 }
 
 .logo {

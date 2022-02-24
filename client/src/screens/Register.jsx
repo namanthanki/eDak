@@ -5,6 +5,7 @@ import axios from "axios";
 import { useHistory } from "react-router-dom";
 import { Redirect } from "react-router-dom";
 import { arrTopics, arrLanguages } from "../helpers/data";
+import * as moment from "moment";
 
 import dotenv from "dotenv";
 dotenv.config({
@@ -12,6 +13,11 @@ dotenv.config({
 });
 
 const Register = () => {
+  // eslint-disable-next-line
+  Object.prototype.isEmpty = function () {
+    return Object.keys(this).length === 0;
+  };
+
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -20,6 +26,7 @@ const Register = () => {
     bio: "",
     dateOfBirth: "",
     gender: "",
+    location: {},
     interests: [],
     languages: [],
   });
@@ -32,12 +39,48 @@ const Register = () => {
     bio,
     dateOfBirth,
     gender,
+    location,
     interests,
     languages,
   } = formData;
 
+  const getLocation = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(showPosition);
+    } else {
+      toast.error("Allow Location to Continue");
+      setCount(1);
+    }
+  };
+
+  const showPosition = (pos) => {
+    let lat = pos.coords.latitude;
+    let lon = pos.coords.longitude;
+
+    let config = {
+      method: "get",
+      url: `https://api.geoapify.com/v1/geocode/reverse?lat=${lat}&lon=${lon}&apiKey=cf81bc2d78334d2f8e8e3328618f3d00`,
+      headers: {},
+    };
+
+    axios(config)
+      .then((res) => {
+        console.log(res.data);
+        setFormData({ ...formData, location: res.data });
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (formData.languages.length < 1) {
+      toast.error(
+        `${formData.languages.length} Languages Selected, Minimum 1 Required!`
+      );
+      return;
+    }
     let id;
     if (email && passwordInput) {
       if (passwordInput === confirmPassword) {
@@ -50,6 +93,7 @@ const Register = () => {
             bio,
             dateOfBirth,
             gender,
+            location,
             interests,
             languages,
           })
@@ -64,6 +108,7 @@ const Register = () => {
               bio: "",
               dateOfBirth: "",
               gender: "",
+              location: {},
               interests: [],
               languages: [],
             });
@@ -90,43 +135,64 @@ const Register = () => {
 
   const errorHandling = () => {
     if (count === 1) {
+      getLocation();
       if (email && passwordInput && confirmPassword) {
         if (passwordInput.length < 8) {
           toast.error("Please Enter Minimum 8 Characters");
           setCount(1);
+          return;
         } else if (passwordInput.length !== confirmPassword.length) {
           toast.error("Passwords Don't Match");
           setCount(1);
+          return;
         }
       } else {
         toast.error("Please Fill in All Fields");
         setCount(1);
+        return;
       }
+      setCount(2);
     }
     if (count === 2) {
       if (username && bio && dateOfBirth && gender) {
         if (gender === "-Select-") {
           toast.error("Please Select Your Gender");
           setCount(2);
+          return;
+        }
+        if (!moment(dateOfBirth).isValid()) {
+          toast.error("Invalid Date");
+          setCount(2);
+          return;
         }
       } else {
         toast.error("Please Fill in All Fields");
         setCount(2);
+        return;
       }
+      if (location.isEmpty()) {
+        toast.error("Allow Location to Continue!");
+        setCount(1);
+        return;
+      }
+      setCount(3);
     }
     if (count === 3) {
       if (formData.interests.length < 5) {
         toast.error(
-          `Only ${formData.interests.length} Topics Added, Minimum 5 Required!`
+          `${formData.interests.length} Topics Added, Minimum 5 Required!`
         );
         setCount(3);
+        return;
       }
+      setCount(4);
     } else if (count === 4) {
       if (formData.languages.length < 1) {
         toast.error(
-          `Only ${formData.languages.length} Languages Selected, Minimum 1 Required!`
+          `${formData.languages.length} Languages Selected, Minimum 1 Required!`
         );
         setCount(4);
+        return;
       }
     }
   };
@@ -134,8 +200,8 @@ const Register = () => {
   const [count, setCount] = useState(1);
 
   const increaseCount = () => {
-    setCount(count + 1);
     errorHandling();
+    console.log(location);
   };
 
   const decreaseCount = () => {
@@ -264,6 +330,9 @@ const Register = () => {
                   type="date"
                   name="dateOfBirth"
                   required
+                  min="1940-01-01"
+                  max={`${new Date().getFullYear() - 14}-01-31`}
+                  onKeyDown={(e) => e.preventDefault()}
                   onChange={handleChange("dateOfBirth")}
                 />
               </div>
@@ -282,11 +351,11 @@ const Register = () => {
                 </select>
               </div>
 
-              <div className="btn-wrapper">
-                <button
-                  className="btn btn-full"
-                  type="button"
-                  onClick={increaseCount}>
+              <div className="btn-wrapper col">
+                <button className="btn" type="button" onClick={decreaseCount}>
+                  Back
+                </button>
+                <button className="btn" type="button" onClick={increaseCount}>
                   Continue
                 </button>
               </div>

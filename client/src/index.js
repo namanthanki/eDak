@@ -9,8 +9,6 @@ import Forgot from "./screens/Forgot";
 import Activate from "./screens/Activate";
 import Reset from "./screens/Reset";
 import Home from "./screens/Home";
-import Write from "./screens/Write";
-import Letter from "./screens/Letter";
 import Explore from "./screens/Explore";
 import Settings from "./screens/Settings";
 
@@ -46,12 +44,6 @@ ReactDOM.render(
         render={(props) => <Reset {...props} />}
       />
       <Route path="/app" exact render={(props) => <Home {...props} />} />
-      <Route path="/app/write" exact render={(props) => <Write {...props} />} />
-      <Route
-        path="/app/letter"
-        exact
-        render={(props) => <Letter {...props} />}
-      />
       <Route
         path="/app/explore"
         exact

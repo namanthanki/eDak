@@ -1,39 +1,47 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import Switch from "react-switch";
-// import { MultiSelect } from "react-multi-select-component";
+// import { toast, ToastContainer } from "react-toastify";
+// import { Chip } from "@mui/material";
 
 import Navbar from "./Navbar";
 import { isAuth } from "../helpers/auth";
+// import { arrTopics, arrLanguages } from "../helpers/data";
+
+// import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 
 const Settings = () => {
-  const [responseData, setResponseData] = useState();
-  const [lastSeen, setLastSeen] = useState(false);
-  const [birthDate, setBirthDate] = useState(true);
+  const [responseData, setResponseData] = useState({
+    username: "",
+    userProfieImage: "",
+    bio: "",
+    interests: [],
+    languages: [],
+  });
   const [setting, setSetting] = useState("profile");
   const [accent, setAccent] = useState("profileAccent");
-  const [selected, setSelected] = useState([]);
-
-  const [age, setAge] = useState(true);
-
-  const options = [
-    { value: "value-1", label: "label-1" },
-    { value: "value-2", label: "label-2" },
-    { value: "value-3", label: "label-3" },
-  ];
 
   useEffect(() => {
     const id = isAuth()._id;
-    axios
-      .get(`http://localhost:5000/user/${id}/profile_picture`)
-      .then((res) => {
-        setResponseData(res.data.user.userProfileImage);
+    axios.get(`http://localhost:5000/user/${id}`).then((res) => {
+      console.log(res.data);
+      setResponseData({
+        ...responseData,
+        username: res.data.username,
+        userProfieImage: res.data.userProfileImage,
+        bio: res.data.bio,
+        interests: res.data.interests,
+        languages: res.data.languages,
       });
+    });
+    //eslint-disable-next-line
   }, []);
+
+  console.log(responseData);
 
   return (
     <div>
       <Navbar />
+      {/* <ToastContainer /> */}
       <div className="settings-wrapper">
         <div className="side-pane">
           <p
@@ -66,85 +74,34 @@ const Settings = () => {
           {setting === "profile" ? (
             <div className="setting-container">
               <div className="username-wrapper">
-                <h3>Username</h3>
+                <h3>{responseData.username}</h3>
               </div>
               <div className="user-image-wrapper">
-                <img src={responseData} alt="userProfileImage" />
+                <img
+                  src={responseData.userProfieImage}
+                  alt="userProfileImage"
+                />
               </div>
               <div className="user-bio-wrapper">
                 <label>Bio</label>
-                <textarea>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Velit, magni culpa? Eligendi inventore veritatis culpa ullam
-                  magnam quos id, voluptates unde sed perspiciatis. Iste velit
-                  repudiandae, debitis unde culpa magni atque dolores? Facilis
-                  iure minima eaque nihil. Doloremque, eos consequatur.
-                </textarea>
-              </div>
-              <div className="toggle-options-wrapper">
-                <div className="toggle-option">
-                  <span className="toggle-label">Show Last Seen</span>
-                  <Switch
-                    onChange={() => setLastSeen(!lastSeen)}
-                    checked={lastSeen}
-                    onColor="#d65a31"
-                    handleDiameter={8}
-                    uncheckedIcon={false}
-                    checkedIcon={false}
-                    height={15}
-                    width={40}
-                  />
-                </div>
-                <div className="toggle-option">
-                  <span className="toggle-label">Show Birthdate</span>
-                  <Switch
-                    onChange={() => setBirthDate(!birthDate)}
-                    checked={birthDate}
-                    onColor="#d65a31"
-                    handleDiameter={8}
-                    uncheckedIcon={false}
-                    checkedIcon={false}
-                    height={15}
-                    width={40}
-                  />
-                </div>
-                <div className="toggle-option">
-                  <span className="toggle-label">Show Age</span>
-                  <Switch
-                    onChange={() => setAge(!age)}
-                    checked={age}
-                    onColor="#d65a31"
-                    handleDiameter={8}
-                    uncheckedIcon={false}
-                    checkedIcon={false}
-                    height={15}
-                    width={40}
-                  />
-                </div>
+                <textarea value={responseData.bio}>{responseData.bio}</textarea>
               </div>
             </div>
           ) : null}
           {setting === "interests" ? (
             <div className="setting-container">
               <div className="username-wrapper">
-                <h3>Interest</h3>
+                <h3>{responseData.username}</h3>
               </div>
-              <div className="user-bio-wrapper">
-                {/* <MultiSelect
-                  options={options}
-                  value={selected}
-                  onChange={setSelected}
-                  labelledBy="Interests"
-                /> */}
-              </div>
+              <div className="settings-data-container"></div>
             </div>
           ) : null}
           {setting === "languages" ? (
             <div className="setting-container">
               <div className="username-wrapper">
-                <h3>Language</h3>
+                <h3>{responseData.username}</h3>
               </div>
-              <div className="user-bio-wrapper"></div>
+              <div className="settings-data-container"></div>
             </div>
           ) : null}
         </div>
