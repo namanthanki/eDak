@@ -445,7 +445,7 @@ export const avatarTypes = [
   "identicon",
   "initials",
   "micah",
-  "minivas",
+  "miniavs",
   "open-peeps",
   "personas",
   "pixel-art",

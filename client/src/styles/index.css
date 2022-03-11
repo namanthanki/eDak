@@ -10,6 +10,7 @@
   --primary: #2f3642;
   --white: #eeeeee;
   --accent: #d65a31;
+  --lightAccent: #db814d;
   --border: #eeeeeeab;
 }
 
@@ -33,6 +34,27 @@ body {
 
 input[type="checkbox"] {
   accent-color: var(--accent);
+}
+
+.menu-button {
+  background: transparent;
+  color: var(--white);
+  border: 0;
+  cursor: pointer;
+}
+
+.menu-item {
+  background: var(--primary);
+
+  border: 0;
+  border-radius: 10px;
+  padding: 1em;
+  cursor: pointer;
+  box-shadow: 0 0 2pt 1.5px var(--bg);
+}
+
+.menu-item:hover {
+  background: var(--bg);
 }
 
 .container {
@@ -77,6 +99,11 @@ input[type="checkbox"] {
 
 .accent {
   color: var(--accent);
+}
+
+.modal-labels {
+  color: var(--lightAccent);
+  font-size: 13px;
 }
 
 a {

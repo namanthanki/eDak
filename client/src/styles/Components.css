@@ -393,6 +393,10 @@
   border: 1px solid var(--border);
 }
 
+.user-name {
+  font-size: 0.7em;
+}
+
 /* Opened Letter */
 .opened-letter-wrapper {
   display: grid;

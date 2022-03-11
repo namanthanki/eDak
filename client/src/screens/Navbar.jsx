@@ -9,9 +9,14 @@ import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined";
 import CreateIcon from "@mui/icons-material/Create";
 import LogoutIcon from "@mui/icons-material/Logout";
+
+import { Menu, MenuList, MenuButton, MenuItem } from "@chakra-ui/react";
+import NotificationBadge from "react-notification-badge";
+
 import axios from "axios";
 import { toast } from "react-toastify";
 import { ChatState } from "../context/ChatProvider.jsx";
+import { getSender } from "../helpers/userDetails";
 
 const Navbar = () => {
   const history = useHistory();
@@ -24,7 +29,14 @@ const Navbar = () => {
     });
   }, []);
 
-  const { setComponent, selectedChat } = ChatState();
+  const {
+    setComponent,
+    selectedChat,
+    notification,
+    setSelectedChat,
+    setNotification,
+    chats,
+  } = ChatState();
 
   return (
     <div className="nav-wrapper">
@@ -43,7 +55,33 @@ const Navbar = () => {
         <Link to="/app/explore">
           <PersonAddIcon className="access-item" />
         </Link>
-        <NotificationsOutlinedIcon className="access-item" />
+        {/* <NotificationsOutlinedIcon className="access-item" /> */}
+        <Menu closeOnBlur={true} direction="rtl">
+          <MenuButton className="menu-button">
+            <NotificationBadge count={notification.length} />
+            <NotificationsOutlinedIcon className="access-item" />
+          </MenuButton>
+          <MenuList direction="ltr">
+            {!notification.length && (
+              <MenuItem className="menu-item">{"No New Messages"}</MenuItem>
+            )}
+            {notification.map((notif) => (
+              <MenuItem
+                className="menu-item"
+                key={notif._id}
+                onClick={() => {
+                  chats.map((c) =>
+                    notif.chat._id === c._id ? setSelectedChat(c) : null
+                  );
+                  setComponent("Letters");
+                  setNotification(notification.filter((n) => n !== notif));
+                }}>
+                {`New Message From ${getSender(notif.chat.users)}`}
+              </MenuItem>
+            ))}
+            {console.log(notification)}
+          </MenuList>
+        </Menu>
         <CreateIcon
           className="access-item"
           onClick={() => {
