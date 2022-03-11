@@ -431,3 +431,23 @@ export const ageGroup = [
   "54",
   "55+",
 ];
+
+export const avatarTypes = [
+  "adventurer",
+  "adventurer-neutral",
+  "avataaars",
+  "big-ears",
+  "big-ears-neutral",
+  "big-smile",
+  "bottts",
+  "croodles",
+  "croodles-neutral",
+  "identicon",
+  "initials",
+  "micah",
+  "miniavs",
+  "open-peeps",
+  "personas",
+  "pixel-art",
+  "pixel-art-neutral",
+];

@@ -4,7 +4,7 @@ import { isAuth } from "../helpers/auth";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import { Redirect } from "react-router-dom";
-import { arrTopics, arrLanguages } from "../helpers/data";
+import { arrTopics, arrLanguages, avatarTypes } from "../helpers/data";
 import * as moment from "moment";
 
 import dotenv from "dotenv";
@@ -18,11 +18,14 @@ const Register = () => {
     return Object.keys(this).length === 0;
   };
 
+  const [avatarType, setAvatarType] = useState("adventurer");
+
   const [formData, setFormData] = useState({
     username: "",
     email: "",
     passwordInput: "",
     confirmPassword: "",
+    userProfileImage: "",
     bio: "",
     dateOfBirth: "",
     gender: "",
@@ -43,6 +46,8 @@ const Register = () => {
     interests,
     languages,
   } = formData;
+
+  const userProfileImage = `https://avatars.dicebear.com/api/${avatarType}/${username}.svg`;
 
   const getLocation = () => {
     if (navigator.geolocation) {
@@ -89,6 +94,7 @@ const Register = () => {
           .post(`${process.env.REACT_APP_API_URL}/register`, {
             username,
             email,
+            userProfileImage,
             password: passwordInput,
             bio,
             dateOfBirth,
@@ -105,6 +111,7 @@ const Register = () => {
               email: "",
               passwordInput: "",
               confirmPassword: "",
+              userProfileImage: "",
               bio: "",
               dateOfBirth: "",
               gender: "",
@@ -176,6 +183,7 @@ const Register = () => {
         return;
       }
       setCount(3);
+      console.log(userProfileImage);
     }
     if (count === 3) {
       if (formData.interests.length < 5) {
@@ -303,9 +311,22 @@ const Register = () => {
             <div className="form-wrapper">
               <div className="field-wrapper user-img">
                 <img
-                  src={`https://avatars.dicebear.com/api/bottts/${username}.svg`}
+                  src={`https://avatars.dicebear.com/api/${avatarType}/${username}.svg`}
                   alt="userProfileImage"
                 />
+              </div>
+              <div className="field-wrapper">
+                <label>Avatar Type</label>
+                <select
+                  name="avatar-types"
+                  id="avatar-types"
+                  onChange={(e) => setAvatarType(e.target.value)}>
+                  {avatarTypes.map((type) => (
+                    <option value={type} key={type}>
+                      {type}
+                    </option>
+                  ))}
+                </select>
               </div>
               <div className="field-wrapper">
                 <label>Username</label>

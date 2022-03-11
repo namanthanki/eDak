@@ -21,14 +21,16 @@ const ExploreBody = () => {
                     moment()
                       .diff(user.dateOfBirth, "years", false)
                       .toString() || u === "55+"
-                    ? moment()
-                        .diff(user.dateOfBirth, "years", false)
-                        .toString() >= u
+                    ? moment().diff(user.dateOfBirth, "years", false) >= 55
                       ? true
                       : false
                     : false
                 ) ? (
-                  <AddFriend user={user} key={user._id} />
+                  <AddFriend
+                    user={user}
+                    key={user._id}
+                    onClick={() => console.log("Clicked")}
+                  />
                 ) : null}
               </>
             );

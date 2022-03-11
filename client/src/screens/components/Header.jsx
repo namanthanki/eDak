@@ -7,6 +7,7 @@ import {
 import * as moment from "moment";
 
 const Header = ({ users }) => {
+  console.log(users);
   return (
     <div className="letters-header">
       <div className="user-details">

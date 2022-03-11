@@ -21,6 +21,7 @@ const activationController = (req, res) => {
           username,
           email,
           password,
+          userProfileImage,
           bio,
           gender,
           dateOfBirth,
@@ -28,8 +29,6 @@ const activationController = (req, res) => {
           languages,
           interests,
         } = jwt.decode(token);
-
-        const userProfileImage = `https://avatars.dicebear.com/api/bottts/${username}.svg`;
 
         const user = new User({
           userProfileImage,
