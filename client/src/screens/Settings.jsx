@@ -6,8 +6,6 @@ import { logout } from "../helpers/auth";
 import Navbar from "./Navbar";
 import { isAuth } from "../helpers/auth";
 
-import LogoutIcon from "@mui/icons-material/Logout";
-
 const Settings = () => {
   const [responseData, setResponseData] = useState({
     username: "",
