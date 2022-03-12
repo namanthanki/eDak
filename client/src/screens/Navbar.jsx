@@ -17,6 +17,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { ChatState } from "../context/ChatProvider.jsx";
 import { getSender } from "../helpers/userDetails";
+import LightMode from "./components/LightMode";
 
 const Navbar = () => {
   const history = useHistory();
@@ -107,6 +108,7 @@ const Navbar = () => {
           onClick={() => history.push("/app/settings")}
           style={{ cursor: "pointer" }}
         />
+        <LightMode />
       </div>
     </div>
   );
