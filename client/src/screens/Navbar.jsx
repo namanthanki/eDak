@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router";
-import { logout } from "../helpers/auth";
+
 import { Link } from "react-router-dom";
 import { isAuth } from "../helpers/auth";
 
@@ -8,7 +8,6 @@ import logo from "../assets/logo.svg";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined";
 import CreateIcon from "@mui/icons-material/Create";
-import LogoutIcon from "@mui/icons-material/Logout";
 
 import { Menu, MenuList, MenuButton, MenuItem } from "@chakra-ui/react";
 import NotificationBadge from "react-notification-badge";
@@ -92,23 +91,13 @@ const Navbar = () => {
           }}
           style={{ cursor: "pointer" }}
         />
-        <LogoutIcon
-          onClick={() => {
-            logout(() => {
-              history.push("/login");
-            });
-          }}
-          style={{ cursor: "pointer" }}
-          id="logout"
-          className="access-item"
-        />
+        <LightMode />
         <img
           src={responseData}
           alt="userProfileImage"
           onClick={() => history.push("/app/settings")}
           style={{ cursor: "pointer" }}
         />
-        <LightMode />
       </div>
     </div>
   );

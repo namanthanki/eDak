@@ -1,6 +1,10 @@
 import React from "react";
 import "../../styles/LightMode.css";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSun } from "@fortawesome/free-solid-svg-icons";
+import { faMoon } from "@fortawesome/free-solid-svg-icons";
+
 const LightMode = () => {
   let buttonClickedClassName = "clicked";
   // const body = document.body;
@@ -42,12 +46,22 @@ const LightMode = () => {
   };
 
   return (
-    <button
-      className={
-        theme_localStorage_key === "dark" ? buttonClickedClassName : ""
-      }
-      id="lightMode"
-      onClick={(e) => switchTheme(e)}></button>
+    <div>
+      <input
+        type="checkbox"
+        className="checkbox"
+        id="chk"
+        onClick={(e) => switchTheme(e)}
+      />
+      <label className="label" for="chk">
+        <FontAwesomeIcon icon={faMoon} size="xs" className="moon" />
+        <FontAwesomeIcon icon={faSun} size="xs" className="sun" />
+        <div
+          className={`ball ${
+            theme_localStorage_key === "dark" ? buttonClickedClassName : ""
+          }"`}></div>
+      </label>
+    </div>
   );
 };
 

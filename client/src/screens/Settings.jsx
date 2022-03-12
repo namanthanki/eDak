@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import axios from "axios";
-// import { toast, ToastContainer } from "react-toastify";
-// import { Chip } from "@mui/material";
+import { logout } from "../helpers/auth";
 
 import Navbar from "./Navbar";
 import { isAuth } from "../helpers/auth";
-// import { arrTopics, arrLanguages } from "../helpers/data";
 
-// import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
+import LogoutIcon from "@mui/icons-material/Logout";
 
 const Settings = () => {
   const [responseData, setResponseData] = useState({
@@ -19,6 +18,8 @@ const Settings = () => {
   });
   const [setting, setSetting] = useState("profile");
   const [accent, setAccent] = useState("profileAccent");
+
+  const history = useHistory();
 
   useEffect(() => {
     const id = isAuth()._id;
@@ -68,6 +69,18 @@ const Settings = () => {
             className={`${accent} language`}>
             Languages
           </p>
+          <div className="logout-wrapper">
+            <button
+              onClick={() => {
+                logout(() => {
+                  history.push("/login");
+                });
+              }}
+              id="logout"
+              className="btn">
+              Logout
+            </button>
+          </div>
         </div>
         <div className="border"></div>
         <div className="settings-body">
