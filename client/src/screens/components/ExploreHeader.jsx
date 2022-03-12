@@ -31,6 +31,7 @@ const ExploreHeader = () => {
       <h2 className="accent">Find Friends</h2>
       <div className="search-container">
         <input
+          type="search"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           className="explore-search-bar"

@@ -14,12 +14,31 @@
   --border: #eeeeeeab;
 }
 
+:root.dark {
+  --bg: #222831;
+  --primary: #2f3642;
+  --white: #eeeeee;
+  --accent: #d65a31;
+  --lightAccent: #db814d;
+  --border: #eeeeeeab;
+}
+
+:root.light {
+  --bg: #eeeeee;
+  --primary: #b3b3b3;
+  --white: #222831;
+  --accent: #d65a31;
+  --lightAccent: #db814d;
+  --border: #222831ab;
+}
+
 /* Global */
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  transition: background-color ease 0.3s;
 }
 
 body {
@@ -32,8 +51,23 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+body.light {
+  background-color: var(--white);
+  color: var(--bg);
+}
+
+body.dark {
+  background-color: var(--bg);
+  color: var(--white);
+}
+
 input[type="checkbox"] {
   accent-color: var(--accent);
+}
+
+input[type="search"]::-webkit-search-cancel-button {
+  color: var(--lightAccent);
+  cursor: pointer;
 }
 
 .menu-button {
@@ -45,7 +79,6 @@ input[type="checkbox"] {
 
 .menu-item {
   background: var(--primary);
-
   border: 0;
   border-radius: 10px;
   padding: 1em;
@@ -91,6 +124,13 @@ input[type="checkbox"] {
 
 .btn-full {
   width: 100%;
+}
+
+.btn-small {
+  height: 15px;
+  width: 15px;
+  padding: 1px;
+  font-size: 8px;
 }
 
 .secondary-btn {
@@ -163,4 +203,9 @@ option {
 
 .accessibility-wrapper .access-item {
   margin-top: 2px;
+}
+
+input:hover,
+textarea:hover {
+  border: 1px solid var(--lightAccent);
 }

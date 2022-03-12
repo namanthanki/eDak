@@ -1,10 +1,14 @@
-import { getSender, getSenderImage } from "../../helpers/userDetails";
+import {
+  getSender,
+  getSenderImage,
+  getSenderCountry,
+} from "../../helpers/userDetails";
 import { ChatState } from "../../context/ChatProvider.jsx";
 
 import PeopleAltOutlinedIcon from "@mui/icons-material/PeopleAltOutlined";
 
 const Friends = ({ chats }) => {
-  const { setSelectedChat, setComponent, location } = ChatState();
+  const { setSelectedChat, setComponent } = ChatState();
 
   return (
     <div className="friends-list">
@@ -29,7 +33,7 @@ const Friends = ({ chats }) => {
                 key={chat._id}>
                 <div className="friend-details">
                   <h3>{getSender(chat.users)}</h3>
-                  <p>{location}</p>
+                  <p>{getSenderCountry(chat.users)}</p>
                 </div>
                 <div className="friend-image">
                   <img src={getSenderImage(chat.users)} alt="user" />
