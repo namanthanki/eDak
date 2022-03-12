@@ -1,0 +1,22 @@
+#lightMode {
+    background: transparent url("../assets/sun.png") no-repeat center;
+    background-size: 30px 30px;
+    width: 45px;
+    height: 46px;
+    filter: grayscale(100%);
+    border: none;
+    border-radius: 50%;
+    transition: background-color 0.3s ease-in-out, filter 0.3s ease-in-out;
+}
+
+#lightMode:hover,
+#lightMode:focus {
+    filter: none;
+    background-color: white;
+    cursor: pointer;
+}
+
+#lightMode.clicked {
+    filter: none !important;
+    background-color: white;
+}
