@@ -10,7 +10,6 @@ import Box from "@mui/material/Box";
 import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
 import Modal from "@mui/material/Modal";
-import Divider from "@mui/material/Divider";
 
 const style = {
   position: "absolute",
@@ -119,18 +118,7 @@ const AddFriend = ({ user }) => {
             width="100%"
             alignItems="center"
             justifyContent="center"
-            gap="2px"
-            // divider={
-            //   <Divider
-            //     orientation="horizontal"
-            //     flexItem
-            //     style={{
-            //       borderColor: "#eeeeee12",
-            //       width: "50px",
-            //       alignSelf: "center",
-            //     }}
-            //   />
-          >
+            gap="2px">
             <img src={user.userProfileImage} alt="user-profile-" width="35%" />
             <h3 style={{ marginBottom: "5px", color: "#eeeeee" }}>
               {user.username}
