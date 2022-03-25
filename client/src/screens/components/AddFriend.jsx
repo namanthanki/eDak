@@ -10,7 +10,6 @@ import Box from "@mui/material/Box";
 import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
 import Modal from "@mui/material/Modal";
-import Divider from "@mui/material/Divider";
 
 const style = {
   position: "absolute",
@@ -18,12 +17,12 @@ const style = {
   left: "50%",
   transform: "translate(-50%, -50%)",
   width: 400,
-  height: 550,
+  height: 600,
   bgcolor: "#2f3642",
   borderRadius: "3px",
   boxShadow: 24,
-  overflowX: "auto",
-  p: 4,
+  overflowY: "hidden",
+  p: 3,
 };
 
 const userInterestsWrapper = {
@@ -31,6 +30,8 @@ const userInterestsWrapper = {
   flexWrap: "wrap",
   alignItems: "center",
   justifyContent: "center",
+  overflowY: "auto",
+  maxHeight: "85px",
   gap: "5px",
 };
 
@@ -103,25 +104,25 @@ const AddFriend = ({ user }) => {
         aria-describedby="modal-modal-description">
         <Box sx={style} padding="5px" height="100%" width="100%">
           <Stack
+            direction="row"
+            justifyContent="flex-end"
+            alignItems="flex-start">
+            <button className="btn btn-small" onClick={handleClose}>
+              X
+            </button>
+          </Stack>
+          <Stack
             direction="column"
             spacing={1}
             height="100%"
             width="100%"
             alignItems="center"
-            justifyContent="space-between"
-            divider={
-              <Divider
-                orientation="horizontal"
-                flexItem
-                style={{
-                  borderColor: "#eeeeee12",
-                  width: "50px",
-                  alignSelf: "center",
-                }}
-              />
-            }>
+            justifyContent="center"
+            gap="2px">
             <img src={user.userProfileImage} alt="user-profile-" width="35%" />
-            <h3 style={{ marginBottom: "5px" }}>{user.username}</h3>
+            <h3 style={{ marginBottom: "5px", color: "#eeeeee" }}>
+              {user.username}
+            </h3>
             <Stack>
               <label
                 style={{
@@ -139,10 +140,11 @@ const AddFriend = ({ user }) => {
             <Stack
               direction="column"
               spacing={1}
-              height="100%"
+              height="250px"
               width="100%"
               alignItems="flex-start"
-              justifyContent="space-between">
+              justifyContent="flex-start"
+              gap="8px">
               <p style={otherDetails}>
                 <span className="modal-labels">Age: </span>
                 {`${moment().diff(user.dateOfBirth, "years", false)} Years Old`}
@@ -156,12 +158,15 @@ const AddFriend = ({ user }) => {
               </label>
               <div id="friend-interests" style={userInterestsWrapper}>
                 {user.interests.map((interest) => (
-                  <Chip
-                    label={interest}
-                    variant="outlined"
-                    size="small"
-                    style={userInterests}
-                  />
+                  <>
+                    <Chip
+                      label={interest}
+                      variant="outlined"
+                      size="small"
+                      style={userInterests}
+                    />
+                    {console.log(interest)}
+                  </>
                 ))}
               </div>
               <label className="modal-labels" htmlFor="friend-languages">

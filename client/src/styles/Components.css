@@ -133,33 +133,9 @@
   width: 100%;
 }
 
-.field-wrapper input,
-.field-wrapper textarea,
-.field-wrapper select {
-  background: none;
-  outline: none;
-  padding: 0.6em 1em;
-  border: 1px solid var(--border);
-  border-radius: 0.5em;
-  color: var(--white);
-  width: 100%;
-}
-
-.field-wrapper textarea {
-  min-height: 100px;
-  max-height: 120px;
-  resize: vertical;
-  font-family: "Nanum Gothic", sans-serif;
-}
-
 .field-wrapper option {
   background-color: var(--bg);
   color: var(--white);
-}
-
-.field-wrapper input:focus,
-.field-wrapper input:active {
-  border: 1px solid var(--white);
 }
 
 .field-wrapper label {
@@ -646,6 +622,11 @@
 
 .side-pane p:hover {
   color: var(--white);
+}
+
+.side-pane .logout-wrapper {
+  margin: 20px 0;
+  width: 100%;
 }
 
 .border {
