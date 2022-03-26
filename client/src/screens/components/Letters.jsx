@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import { ChatState } from "../../context/ChatProvider.jsx";
 import CreateIcon from "@mui/icons-material/Create";
 import { isAuth } from "../../helpers/auth.js";
