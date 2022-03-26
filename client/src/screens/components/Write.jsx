@@ -53,7 +53,6 @@ const Write = () => {
           config
         );
 
-        console.log(data);
 
         setNewMessage("");
         setMessages([...messages, data]);

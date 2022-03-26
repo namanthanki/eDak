@@ -29,7 +29,6 @@ const ExploreBody = () => {
                   <AddFriend
                     user={user}
                     key={user._id}
-                    onClick={() => console.log("Clicked")}
                   />
                 ) : null}
               </>

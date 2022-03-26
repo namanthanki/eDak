@@ -70,7 +70,6 @@ const Register = () => {
 
     axios(config)
       .then((res) => {
-        console.log(res.data);
         setFormData({ ...formData, location: res.data });
       })
       .catch((err) => {
@@ -104,7 +103,6 @@ const Register = () => {
             languages,
           })
           .then((res) => {
-            console.log(formData);
             setFormData({
               ...formData,
               username: "",
@@ -183,7 +181,6 @@ const Register = () => {
         return;
       }
       setCount(3);
-      console.log(userProfileImage);
     }
     if (count === 3) {
       if (formData.interests.length < 5) {
@@ -209,7 +206,6 @@ const Register = () => {
 
   const increaseCount = () => {
     errorHandling();
-    console.log(location);
   };
 
   const decreaseCount = () => {

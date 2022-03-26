@@ -11,8 +11,6 @@ const Letters = () => {
     messages,
   } = ChatState();
 
-  console.log(messages);
-
   const renderLetter = (msg_id) => {
     setMessage_id(msg_id);
     setSelectedMessage(message_id);

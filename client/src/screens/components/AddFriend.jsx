@@ -143,7 +143,6 @@ const AddFriend = ({ user }) => {
                       size="small"
                       className="user-interests"
                     />
-                    {console.log(interest)}
                   </>
                 ))}
               </div>

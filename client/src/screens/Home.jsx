@@ -53,13 +53,11 @@ const Home = () => {
 
   useEffect(() => {
     socket.on("message received", (new_msg_received) => {
-      console.log(new_msg_received);
       if (
         !selectedChatCompare ||
         selectedChatCompare._id !== new_msg_received.chat._id
       ) {
         if (!notification.includes(new_msg_received)) {
-          console.log(new_msg_received);
           setNotification([new_msg_received, ...notification]);
         }
       } else {
