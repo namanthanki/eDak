@@ -89,12 +89,33 @@ const registerController = async (req, res) => {
             from: process.env.FROM_EMAIL,
             to: email,
             subject: "Account Activation Link",
-            html: `
-                        <h1>Click the link to activate your account</h1>
-                        <p>${process.env.CLIENT_URL}/users/activate/${token}</p>
-                        <hr>
-                        <p>This email contains sensitive information</p>
-                        <p>${process.env.CLIENT_URL}</p>
+            html: `     <div style="
+                                width: 100%; 
+                                height: 100%; 
+                                color: #eeeeee;
+                                background-color: #777777;
+                                margin: 0 auto;">
+                          <h1>Click the link to activate your account</h1>
+                          <button 
+                            style="
+                              border: none;
+                              outline: none;
+                              font-size: 12px;
+                              width: 70px;
+                              background-color: #d65a31;
+                              color: #eeeeee;
+                              padding: 7px;
+                              border-radius: 3px;
+                              cursor: pointer;
+                              transition: all 0.3s ease;
+                              box-shadow: 0 3px 1px -2px #222831, 0 2px 2px 0 #222831,
+                                0 1px 5px 0 #222831;">
+                            <a target="_blank" href=${process.env.CLIENT_URL}/users/activate/${token} style="text-decoration: none; color: #222831">Activate<a/>
+                          </button>
+                          <hr>
+                          <p>This email contains sensitive information</p>
+                          <p>${process.env.CLIENT_URL}</p>
+                        </div>
                     `,
           };
 

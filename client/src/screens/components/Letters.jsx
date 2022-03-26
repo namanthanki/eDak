@@ -34,14 +34,14 @@ const Letters = () => {
                   <div className="letter-content">
                     <p>{msg.content}</p>
                   </div>
-                  <div className="user-name">
-                    <h2>{msg.sender.username}</h2>
+                  <div className="user-name ">
+                    <h2 className="accent">{msg.sender.username}</h2>
                   </div>
                 </div>
               ) : null}
               {msg.sender._id !== isAuth()._id ? (
                 <div
-                  onClick={() => renderLetter(msg, msg._id)}
+                  onClick={() => renderLetter(msg._id)}
                   key={msg._id}
                   className={"letter defaultBorder"}>
                   <div className="letter-content">
