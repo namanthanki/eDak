@@ -21,6 +21,7 @@
   --accent: #d65a31;
   --lightAccent: #db814d;
   --border: #eeeeeeab;
+  --navbar-bg: #2f3642;
 }
 
 :root.light {
@@ -30,6 +31,7 @@
   --accent: #d65a31;
   --lightAccent: #db814d;
   --border: #222831ab;
+  --navbar-bg: #d65a31;
 }
 
 /* Global */
@@ -125,6 +127,10 @@ input[type="search"]::-webkit-search-cancel-button {
     0 1px 5px 0 var(--bg);
 }
 
+.btn-error {
+  background-color: #bf616a;
+}
+
 /* .css-button-shadow--green {
   min-width: 130px;
   height: 40px;
@@ -146,8 +152,8 @@ input[type="search"]::-webkit-search-cancel-button {
 } */
 
 .btn:active {
-  box-shadow: 0 4px 2px -3px var(--accent), 0 4px 5px 1px var(--accent),
-    0 2px 7px 1px var(--accent);
+  box-shadow: 0 4px 2px -3px var(--bg), 0 4px 5px 1px var(--bg),
+    0 2px 7px 1px var(--bg);
 }
 
 .btn-full {
@@ -199,7 +205,7 @@ option {
   justify-content: space-between;
   width: 100%;
   height: 75px;
-  background: var(--primary);
+  background: var(--navbar-bg);
 }
 
 .nav-wrapper .logo-wrapper {
@@ -211,6 +217,7 @@ option {
 
 .nav-wrapper .logo-wrapper .logo {
   width: 130px;
+  fill: var(--bg);
 }
 
 .nav-wrapper .accessibility-wrapper {
@@ -234,7 +241,9 @@ option {
   margin-top: 2px;
 }
 
-input,
+input[type="text"],
+input[type="email"],
+input[type="password"],
 textarea,
 select {
   background: none;
@@ -254,7 +263,9 @@ textarea {
   font-family: "Nanum Gothic", sans-serif;
 }
 
-input:focus,
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
 textarea:focus {
-  box-shadow: var(--border) 0px 1px 6px 0px;
+  box-shadow: #888 0px 1px 6px 0px;
 }

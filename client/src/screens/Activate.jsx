@@ -52,7 +52,10 @@ const Activate = ({ match }) => {
   return (
     <div className="auth-container">
       {isAuth() ? <Redirect to="/app" /> : null}
-      <ToastContainer />
+      <ToastContainer
+        progressClassName="toastProgress"
+        bodyClassName="toastBody"
+      />
       <div className="illustration register"></div>
       <div className="auth-wrapper">
         <form onSubmit={handleSubmit}>

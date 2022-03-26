@@ -7,7 +7,7 @@ import { Redirect } from "react-router-dom";
 
 import dotenv from "dotenv";
 dotenv.config({
-    path: "../../.env"
+  path: "../../.env",
 });
 
 const Forgot = ({ history }) => {
@@ -55,7 +55,10 @@ const Forgot = ({ history }) => {
   return (
     <div className="auth-container">
       {isAuth() ? <Redirect to="/app" /> : null}
-      <ToastContainer />
+      <ToastContainer
+        progressClassName="toastProgress"
+        bodyClassName="toastBody"
+      />
       <div className="illustration register"></div>
       <div className="auth-wrapper">
         <form onSubmit={handleSubmit}>

@@ -53,7 +53,10 @@ const Login = ({ history }) => {
   return (
     <div className="auth-container">
       {isAuth() ? <Redirect to="/app" /> : null}
-      <ToastContainer />
+      <ToastContainer
+        progressClassName="toastProgress"
+        bodyClassName="toastBody"
+      />
       <div className="illustration login"></div>
       <div className="auth-wrapper">
         <form onSubmit={handleSubmit}>

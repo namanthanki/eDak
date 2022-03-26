@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { ChatState } from "../../context/ChatProvider.jsx";
 import CreateIcon from "@mui/icons-material/Create";
+import { isAuth } from "../../helpers/auth.js";
 
 const Letters = () => {
   const {
@@ -10,6 +11,8 @@ const Letters = () => {
     setMessage_id,
     messages,
   } = ChatState();
+
+  console.log(messages);
 
   const renderLetter = (msg_id) => {
     setMessage_id(msg_id);
@@ -22,17 +25,34 @@ const Letters = () => {
       {messages.length !== 0 ? (
         <div className="letters">
           {messages.map((msg) => (
-            <div
-              className="letter"
-              onClick={() => renderLetter(msg._id)}
-              key={msg._id}>
-              <div className="letter-content">
-                <p>{msg.content}</p>
-              </div>
-              <div className="user-name">
-                <h2>{msg.sender.username}</h2>
-              </div>
-            </div>
+            <>
+              {msg.sender._id === isAuth()._id ? (
+                <div
+                  onClick={() => renderLetter(msg._id)}
+                  key={msg._id}
+                  className={"letter accentBorder"}>
+                  <div className="letter-content">
+                    <p>{msg.content}</p>
+                  </div>
+                  <div className="user-name">
+                    <h2>{msg.sender.username}</h2>
+                  </div>
+                </div>
+              ) : null}
+              {msg.sender._id !== isAuth()._id ? (
+                <div
+                  onClick={() => renderLetter(msg, msg._id)}
+                  key={msg._id}
+                  className={"letter defaultBorder"}>
+                  <div className="letter-content">
+                    <p>{msg.content}</p>
+                  </div>
+                  <div className="user-name">
+                    <h2>{msg.sender.username}</h2>
+                  </div>
+                </div>
+              ) : null}
+            </>
           ))}
         </div>
       ) : (
