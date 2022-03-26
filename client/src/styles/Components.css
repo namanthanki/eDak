@@ -764,6 +764,11 @@
   margin: 0;
 }
 
+.settings-container .button-wrapper {
+  width: 100%;
+  height: 100px;
+}
+
 .profile.profileAccent {
   color: var(--white);
 }

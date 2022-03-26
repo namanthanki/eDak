@@ -18,7 +18,6 @@ const Letter = () => {
       const { data } = await axios.get(
         `http://localhost:5000/user/message/read/${message_id}/`
       );
-      console.log(data);
       setSelectedMessageData(data);
     } catch (err) {
       console.log("Error fetching message");

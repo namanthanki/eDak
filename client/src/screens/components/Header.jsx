@@ -128,7 +128,6 @@ const Header = ({ users }) => {
                       size="small"
                       className="user-interests"
                     />
-                    {console.log(interest)}
                   </>
                 ))}
               </div>
