@@ -20,10 +20,11 @@ const Settings = () => {
   });
   const [setting, setSetting] = useState("profile");
   const [accent, setAccent] = useState("profileAccent");
+  const [buttonView, setButtonView] = useState("disable");
 
   const history = useHistory();
 
-  useEffect(() => {
+  const fetchData = () => {
     const id = isAuth()._id;
     axios.get(`http://localhost:5000/user/${id}`).then((res) => {
       setResponseData({
@@ -35,10 +36,19 @@ const Settings = () => {
         languages: res.data.languages,
       });
     });
+  };
+
+  const setData = () => {
+    // Put Req Logic Here
+  };
+
+  useEffect(() => {
+    fetchData();
     //eslint-disable-next-line
   }, []);
 
   const deleteInterest = (interest) => {
+    setButtonView("enable");
     let tempArray = responseData.interests;
     let i = tempArray.indexOf(interest);
     tempArray.splice(i, 1);
@@ -46,12 +56,14 @@ const Settings = () => {
   };
 
   const addInterest = (interest) => {
+    setButtonView("enable");
     let tempArray = responseData.interests;
     tempArray.push(interest);
     setResponseData({ ...responseData, interests: tempArray });
   };
 
   const deleteLang = (lang) => {
+    setButtonView("enable");
     let tempArray = responseData.languages;
     let i = tempArray.indexOf(lang);
     tempArray.splice(i, 1);
@@ -59,9 +71,21 @@ const Settings = () => {
   };
 
   const addLang = (lang) => {
+    setButtonView("enable");
     let tempArray = responseData.languages;
     tempArray.push(lang);
     setResponseData({ ...responseData, languages: tempArray });
+  };
+
+  const setBio = (e) => {
+    setButtonView("enable");
+    setResponseData({ ...responseData, bio: e.target.value });
+  };
+
+  const handleSubmit = () => {
+    setButtonView("disable");
+    setData();
+    fetchData();
   };
 
   return (
@@ -122,7 +146,14 @@ const Settings = () => {
               </div>
               <div className="user-bio-wrapper">
                 <label>Bio</label>
-                <textarea value={responseData.bio}>{responseData.bio}</textarea>
+                <textarea onChange={setBio} value={responseData.bio} />
+              </div>
+              <div className="button-wrapper">
+                {buttonView === "enable" ? (
+                  <button type="button" className="btn" onClick={handleSubmit}>
+                    Save
+                  </button>
+                ) : null}
               </div>
             </div>
           ) : null}
@@ -161,9 +192,16 @@ const Settings = () => {
                     </>
                   ))}
                 </div>
-                <button type="button" className="btn">
-                  Save
-                </button>
+                <div className="button-wrapper">
+                  {buttonView === "enable" ? (
+                    <button
+                      type="button"
+                      className="btn"
+                      onClick={handleSubmit}>
+                      Save
+                    </button>
+                  ) : null}
+                </div>
               </div>
             </div>
           ) : null}
@@ -202,9 +240,16 @@ const Settings = () => {
                     </>
                   ))}
                 </div>
-                <button type="button" className="btn">
-                  Save
-                </button>
+                <div className="button-wrapper">
+                  {buttonView === "enable" ? (
+                    <button
+                      type="button"
+                      className="btn"
+                      onClick={handleSubmit}>
+                      Save
+                    </button>
+                  ) : null}
+                </div>
               </div>
             </div>
           ) : null}
