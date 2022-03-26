@@ -38,8 +38,37 @@ const Settings = () => {
     });
   };
 
-  const setData = () => {
-    // Put Req Logic Here
+  const updateInterestsData = () => {
+    setButtonView("disable");
+    const id = isAuth()._id;
+    axios.patch(`http://localhost:5000/user/${id}/update/interests`, { interests: responseData.interests })
+      .then((res, err) => {
+        if(res) {
+          fetchData();
+        }
+      }).catch((err) => console.log(err));
+  };
+
+  const updateLanguagesData = () => {
+    setButtonView("disable");
+    const id = isAuth()._id;
+    axios.patch(`http://localhost:5000/user/${id}/update/languages`, { languages: responseData.languages })
+      .then((res, err) => {
+        if(res) {
+          fetchData();
+        }
+      }).catch((err) => console.log(err));
+  };
+
+  const updateBioData = () => {
+    setButtonView("disable");
+    const id = isAuth()._id;
+    axios.patch(`http://localhost:5000/user/${id}/update/bio`, { bio: responseData.bio })
+      .then((res, err) => {
+        if(res) {
+          fetchData();
+        }
+      }).catch((err) => console.log(err));
   };
 
   useEffect(() => {
@@ -82,11 +111,11 @@ const Settings = () => {
     setResponseData({ ...responseData, bio: e.target.value });
   };
 
-  const handleSubmit = () => {
-    setButtonView("disable");
-    setData();
-    fetchData();
-  };
+  // const handleSubmit = () => {
+  //   setButtonView("disable");
+  //   setData();
+  //   fetchData();
+  // };
 
   return (
     <div>
@@ -150,7 +179,7 @@ const Settings = () => {
               </div>
               <div className="button-wrapper">
                 {buttonView === "enable" ? (
-                  <button type="button" className="btn" onClick={handleSubmit}>
+                  <button type="button" className="btn" onClick={updateBioData}>
                     Save
                   </button>
                 ) : null}
@@ -197,7 +226,7 @@ const Settings = () => {
                     <button
                       type="button"
                       className="btn"
-                      onClick={handleSubmit}>
+                      onClick={updateInterestsData}>
                       Save
                     </button>
                   ) : null}
@@ -245,7 +274,7 @@ const Settings = () => {
                     <button
                       type="button"
                       className="btn"
-                      onClick={handleSubmit}>
+                      onClick={updateLanguagesData}>
                       Save
                     </button>
                   ) : null}
