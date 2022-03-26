@@ -326,6 +326,7 @@
 }
 
 .user-image img {
+  cursor: pointer;
   width: 80px;
 }
 
@@ -366,7 +367,14 @@
   height: 230px;
   padding: 1.5em;
   background-color: var(--primary);
+}
+
+.letter.defaultBorder {
   border: 1px solid var(--border);
+}
+
+.letter.accentBorder {
+  border: 1px solid var(--accent);
 }
 
 .user-name {
@@ -508,7 +516,7 @@
   justify-content: space-between;
   padding: 0 1em;
   width: 100%;
-  height: 40px;
+  height: 41px;
   border-bottom: 1px solid var(--border);
 }
 
@@ -563,7 +571,14 @@
   gap: 0.5em;
   width: 200px;
   height: 235px;
+  cursor: pointer;
+  border: 1px solid var(--border);
   background-color: var(--primary);
+  transition: box-shadow ease-in-out 0.3s;
+}
+
+.add-friend:hover {
+  box-shadow: var(--primary) 5px 5px 25px 0px;
 }
 
 .add-friend .friend-image {
@@ -594,6 +609,40 @@
 .add-friend .friend-details .friend-age {
   font-size: 10px;
   text-align: center;
+}
+
+.modal-box {
+  background-color: var(--primary);
+  color: var(--white);
+}
+
+.modal-box .user-interests-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  overflow-y: auto;
+  max-height: 85px;
+  gap: 5px;
+}
+
+.modal-box .user-interests {
+  display: flex;
+  flex-wrap: wrap;
+  color: var(--border);
+  border-color: var(--accent);
+  font-size: 0.6em;
+}
+
+.modal-box .other-details {
+  font-size: 13px;
+  color: var(--border);
+  text-align: center;
+}
+
+.modal-box .username {
+  margin-bottom: 5px;
+  color: var(--white);
 }
 
 /* Settings */
@@ -686,6 +735,33 @@
   width: 100%;
   resize: vertical;
   font-family: "Nanum Gothic", sans-serif;
+}
+
+.setting-container .settings-data-container {
+  max-height: 150px;
+  overflow-y: auto;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 5px;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.settings-data-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.setting-container .settings-data-container .data-chip {
+  border: 1px solid var(--accent);
+  color: var(--white);
+  padding: 13px 5px;
+  margin: 0;
 }
 
 .profile.profileAccent {

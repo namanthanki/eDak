@@ -73,7 +73,10 @@ const Write = () => {
 
   return (
     <>
-      <ToastContainer />
+      <ToastContainer
+        progressClassName="toastProgress"
+        bodyClassName="toastBody"
+      />
       {selectedChat ? (
         <div className="opened-letter-wrapper">
           <div className="opened-letter">

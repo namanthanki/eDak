@@ -79,7 +79,6 @@ const Navbar = () => {
                 {`New Message From ${getSender(notif.chat.users)}`}
               </MenuItem>
             ))}
-            {console.log(notification)}
           </MenuList>
         </Menu>
         <CreateIcon

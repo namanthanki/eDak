@@ -27,11 +27,13 @@
   left: 2px;
   height: 10px;
   width: 10px;
-  transform: translateX(0px);
-  transition: transform 0.2s linear;
 }
 
-.checkbox:checked + .label .ball {
+.ball.not-clicked {
+  transform: translateX(0px);
+}
+
+.ball.clicked {
   transform: translateX(16px);
 }
 

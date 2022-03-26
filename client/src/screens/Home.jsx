@@ -81,7 +81,6 @@ const Home = () => {
       const { data } = await axios.get(
         `http://localhost:5000/user/message/${chat_id}/`
       );
-      console.log(messages);
       setMessages(data);
 
       socket.emit("join chat", selectedChat._id);

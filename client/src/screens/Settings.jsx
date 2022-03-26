@@ -5,6 +5,10 @@ import { logout } from "../helpers/auth";
 
 import Navbar from "./Navbar";
 import { isAuth } from "../helpers/auth";
+import { arrTopics, arrLanguages } from "../helpers/data";
+
+import Chip from "@mui/material/Chip";
+import ClearIcon from "@mui/icons-material/Clear";
 
 const Settings = () => {
   const [responseData, setResponseData] = useState({
@@ -22,7 +26,6 @@ const Settings = () => {
   useEffect(() => {
     const id = isAuth()._id;
     axios.get(`http://localhost:5000/user/${id}`).then((res) => {
-      console.log(res.data);
       setResponseData({
         ...responseData,
         username: res.data.username,
@@ -35,7 +38,31 @@ const Settings = () => {
     //eslint-disable-next-line
   }, []);
 
-  console.log(responseData);
+  const deleteInterest = (interest) => {
+    let tempArray = responseData.interests;
+    let i = tempArray.indexOf(interest);
+    tempArray.splice(i, 1);
+    setResponseData({ ...responseData, interests: tempArray });
+  };
+
+  const addInterest = (interest) => {
+    let tempArray = responseData.interests;
+    tempArray.push(interest);
+    setResponseData({ ...responseData, interests: tempArray });
+  };
+
+  const deleteLang = (lang) => {
+    let tempArray = responseData.languages;
+    let i = tempArray.indexOf(lang);
+    tempArray.splice(i, 1);
+    setResponseData({ ...responseData, languages: tempArray });
+  };
+
+  const addLang = (lang) => {
+    let tempArray = responseData.languages;
+    tempArray.push(lang);
+    setResponseData({ ...responseData, languages: tempArray });
+  };
 
   return (
     <div>
@@ -104,7 +131,40 @@ const Settings = () => {
               <div className="username-wrapper">
                 <h3>{responseData.username}</h3>
               </div>
-              <div className="settings-data-container"></div>
+              <div className="settings-data-wrapper">
+                <h3>Interests</h3>
+                <div className="settings-data-container">
+                  {responseData.interests.map((interest) => (
+                    <Chip
+                      label={interest}
+                      variant="outlined"
+                      size="small"
+                      className="data-chip"
+                      deleteIcon={<ClearIcon style={{ color: "#d65a31" }} />}
+                      onDelete={() => deleteInterest(interest)}
+                    />
+                  ))}
+                </div>
+                <h3>Add Interests</h3>
+                <div className="settings-data-container">
+                  {arrTopics.map((topic) => (
+                    <>
+                      {!responseData.interests.includes(topic) ? (
+                        <Chip
+                          label={topic}
+                          variant="outlined"
+                          size="small"
+                          className="data-chip"
+                          onClick={() => addInterest(topic)}
+                        />
+                      ) : null}
+                    </>
+                  ))}
+                </div>
+                <button type="button" className="btn">
+                  Save
+                </button>
+              </div>
             </div>
           ) : null}
           {setting === "languages" ? (
@@ -112,7 +172,40 @@ const Settings = () => {
               <div className="username-wrapper">
                 <h3>{responseData.username}</h3>
               </div>
-              <div className="settings-data-container"></div>
+              <div className="settings-data-wrapper">
+                <h3>Languages</h3>
+                <div className="settings-data-container">
+                  {responseData.languages.map((language) => (
+                    <Chip
+                      label={language}
+                      variant="outlined"
+                      size="small"
+                      className="data-chip"
+                      deleteIcon={<ClearIcon style={{ color: "#d65a31" }} />}
+                      onDelete={() => deleteLang(language)}
+                    />
+                  ))}
+                </div>
+                <h3>Add Languages</h3>
+                <div className="settings-data-container">
+                  {arrLanguages.map((lang) => (
+                    <>
+                      {!responseData.languages.includes(lang) ? (
+                        <Chip
+                          label={lang}
+                          variant="outlined"
+                          size="small"
+                          className="data-chip"
+                          onClick={() => addLang(lang)}
+                        />
+                      ) : null}
+                    </>
+                  ))}
+                </div>
+                <button type="button" className="btn">
+                  Save
+                </button>
+              </div>
             </div>
           ) : null}
         </div>

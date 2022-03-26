@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "../../styles/LightMode.css";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -15,6 +15,8 @@ const LightMode = () => {
   if (localStorage) {
     theme_localStorage_key = localStorage.getItem("theme");
   }
+
+  const [switchClass, addSwitchClass] = useState(theme_localStorage_key);
 
   if (
     theme_localStorage_key === lightThemeClass ||
@@ -43,6 +45,7 @@ const LightMode = () => {
       localStorage.setItem("theme", "dark");
       theme_localStorage_key = darkThemeClass;
     }
+    addSwitchClass(theme_localStorage_key);
   };
 
   return (
@@ -53,13 +56,13 @@ const LightMode = () => {
         id="chk"
         onClick={(e) => switchTheme(e)}
       />
-      <label className="label" for="chk">
+      <label className="label" htmlFor="chk">
         <FontAwesomeIcon icon={faMoon} size="xs" className="moon" />
         <FontAwesomeIcon icon={faSun} size="xs" className="sun" />
-        <div
-          className={`ball ${
-            theme_localStorage_key === "dark" ? buttonClickedClassName : ""
-          }"`}></div>
+        {switchClass === "dark" ? <div className="ball clicked"></div> : null}
+        {switchClass === "light" ? (
+          <div className="ball not-clicked"></div>
+        ) : null}
       </label>
     </div>
   );

@@ -18,35 +18,10 @@ const style = {
   transform: "translate(-50%, -50%)",
   width: 400,
   height: 600,
-  bgcolor: "#2f3642",
   borderRadius: "3px",
   boxShadow: 24,
   overflowY: "hidden",
   p: 3,
-};
-
-const userInterestsWrapper = {
-  display: "flex",
-  flexWrap: "wrap",
-  alignItems: "center",
-  justifyContent: "center",
-  overflowY: "auto",
-  maxHeight: "85px",
-  gap: "5px",
-};
-
-const userInterests = {
-  display: "flex",
-  flexWrap: "wrap",
-  color: "#eeeeeeab",
-  borderColor: "#d65a31",
-  fontSize: ".6em",
-};
-
-const otherDetails = {
-  fontSize: "13px",
-  color: "#eeeeeeab",
-  textAlign: "center",
 };
 
 const AddFriend = ({ user }) => {
@@ -102,7 +77,12 @@ const AddFriend = ({ user }) => {
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description">
-        <Box sx={style} padding="5px" height="100%" width="100%">
+        <Box
+          sx={style}
+          padding="5px"
+          height="100%"
+          width="100%"
+          className="modal-box">
           <Stack
             direction="row"
             justifyContent="flex-end"
@@ -120,9 +100,7 @@ const AddFriend = ({ user }) => {
             justifyContent="center"
             gap="2px">
             <img src={user.userProfileImage} alt="user-profile-" width="35%" />
-            <h3 style={{ marginBottom: "5px", color: "#eeeeee" }}>
-              {user.username}
-            </h3>
+            <h3 className="username">{user.username}</h3>
             <Stack>
               <label
                 style={{
@@ -133,7 +111,7 @@ const AddFriend = ({ user }) => {
                 htmlFor="bio">
                 Bio
               </label>
-              <p style={otherDetails} id="bio">
+              <p className="other-details" id="bio">
                 {user.bio}
               </p>
             </Stack>
@@ -145,25 +123,25 @@ const AddFriend = ({ user }) => {
               alignItems="flex-start"
               justifyContent="flex-start"
               gap="8px">
-              <p style={otherDetails}>
+              <p className="other-details">
                 <span className="modal-labels">Age: </span>
                 {`${moment().diff(user.dateOfBirth, "years", false)} Years Old`}
               </p>
-              <p style={otherDetails}>
+              <p className="other-details">
                 <span className="modal-labels">Country: </span>
                 {`${user.location.features[0].properties.country}`}
               </p>
               <label htmlFor="friend-interests" className="modal-labels">
                 Interests:
               </label>
-              <div id="friend-interests" style={userInterestsWrapper}>
+              <div id="friend-interests" className="user-interests-wrapper">
                 {user.interests.map((interest) => (
                   <>
                     <Chip
                       label={interest}
                       variant="outlined"
                       size="small"
-                      style={userInterests}
+                      className="user-interests"
                     />
                     {console.log(interest)}
                   </>
@@ -172,13 +150,13 @@ const AddFriend = ({ user }) => {
               <label className="modal-labels" htmlFor="friend-languages">
                 Languages:
               </label>
-              <div id="friend-languages" style={userInterestsWrapper}>
+              <div id="friend-languages" className="user-interests-wrapper">
                 {user.languages.map((language) => (
                   <Chip
                     label={language}
                     variant="outlined"
                     size="small"
-                    style={userInterests}
+                    className="user-interests"
                   />
                 ))}
               </div>
