@@ -167,6 +167,7 @@ const Settings = () => {
                 <div className="settings-data-container">
                   {responseData.interests.map((interest) => (
                     <Chip
+                      key={interest}
                       label={interest}
                       variant="outlined"
                       size="small"
@@ -182,6 +183,7 @@ const Settings = () => {
                     <>
                       {!responseData.interests.includes(topic) ? (
                         <Chip
+                          key={topic}
                           label={topic}
                           variant="outlined"
                           size="small"
@@ -215,6 +217,7 @@ const Settings = () => {
                 <div className="settings-data-container">
                   {responseData.languages.map((language) => (
                     <Chip
+                      key={language}
                       label={language}
                       variant="outlined"
                       size="small"
@@ -230,6 +233,7 @@ const Settings = () => {
                     <>
                       {!responseData.languages.includes(lang) ? (
                         <Chip
+                          key={lang}
                           label={lang}
                           variant="outlined"
                           size="small"

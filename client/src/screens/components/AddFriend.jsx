@@ -138,6 +138,7 @@ const AddFriend = ({ user }) => {
                 {user.interests.map((interest) => (
                   <>
                     <Chip
+                      key={interest}
                       label={interest}
                       variant="outlined"
                       size="small"
@@ -152,6 +153,7 @@ const AddFriend = ({ user }) => {
               <div id="friend-languages" className="user-interests-wrapper">
                 {user.languages.map((language) => (
                   <Chip
+                    key={language}
                     label={language}
                     variant="outlined"
                     size="small"
