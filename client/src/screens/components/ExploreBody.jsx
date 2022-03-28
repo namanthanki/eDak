@@ -26,10 +26,7 @@ const ExploreBody = () => {
                       : false
                     : false
                 ) ? (
-                  <AddFriend
-                    user={user}
-                    key={user._id}
-                  />
+                  <AddFriend user={user} key={user._id} />
                 ) : null}
               </>
             );

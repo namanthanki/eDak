@@ -123,6 +123,7 @@ const Header = ({ users }) => {
                 {users[1].interests.map((interest) => (
                   <>
                     <Chip
+                      key={interest}
                       label={interest}
                       variant="outlined"
                       size="small"
@@ -137,6 +138,7 @@ const Header = ({ users }) => {
               <div id="friend-languages" className="user-interests-wrapper">
                 {users[1].languages.map((language) => (
                   <Chip
+                    key={language}
                     label={language}
                     variant="outlined"
                     size="small"

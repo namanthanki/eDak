@@ -30,6 +30,8 @@ const ExploreFilter = () => {
     )
       setFilter(true);
     else setFilter(false);
+
+    console.log(filters);
   };
 
   return (
