@@ -36,67 +36,77 @@ const searchUserController = async (req, res) => {
   res.send(users);
 };
 
-const updateUserInterests = async(req, res) => {
+const updateUserInterests = async (req, res) => {
   const { id } = req.params;
   const { interests } = req.body;
 
-  await User
-    .findOneAndUpdate({ _id: id }, { $set: { interests: interests }}, { returnOriginal: false }, 
-      (err, response) => {
-        if(err) {
-          console.log(err);
-        } else {
-          res.json(response);
-        }
-      }
-    );
-}
-
-const updateUserLanguages = async(req, res) => {
-  const { id } = req.params;
-  const { languages } = req.body;
-
-  await User
-    .findOneAndUpdate({ _id: id }, { $set: { languages: languages }}, { returnOriginal: false }, 
-      (err, response) => {
-        if(err) {
-          console.log(err);
-        } else {
-          res.json(response);
-        }
-      }
-    );
-}
-
-const updateUserBio = async(req, res) => {
-  const { id } = req.params;
-  const { bio } = req.body;
-
-  await User
-    .findOneAndUpdate({ _id: id }, { $set: { bio: bio }}, { returnOriginal: false }, 
-      (err, response) => {
-        if(err) {
-          console.log(err);
-        } else {
-          res.json(response);
-        }
-      }
-    );
-}
-
-const deleteFriendChat = async(req, res) => {
-  const { chat_id } = req.body;
-
-  await Chat
-  .findOneAndDelete({ _id: chat_id }, 
+  await User.findOneAndUpdate(
+    { _id: id },
+    { $set: { interests: interests } },
+    { returnOriginal: false },
     (err, response) => {
-      if(err) {
+      if (err) {
         console.log(err);
       } else {
         res.json(response);
       }
     }
-  );  
-}
+  );
+};
 
-export { profileController, searchUserController, updateUserInterests, updateUserLanguages, updateUserBio, deleteFriendChat };
+const updateUserLanguages = async (req, res) => {
+  const { id } = req.params;
+  const { languages } = req.body;
+
+  await User.findOneAndUpdate(
+    { _id: id },
+    { $set: { languages: languages } },
+    { returnOriginal: false },
+    (err, response) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.json(response);
+      }
+    }
+  );
+};
+
+const updateUserBio = async (req, res) => {
+  const { id } = req.params;
+  const { bio } = req.body;
+
+  await User.findOneAndUpdate(
+    { _id: id },
+    { $set: { bio: bio } },
+    { returnOriginal: false },
+    (err, response) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.json(response);
+      }
+    }
+  );
+};
+
+const deleteFriendChat = async (req, res) => {
+  const { chat_id } = req.body;
+
+  await Chat.findOneAndDelete({ _id: chat_id }, (err, response) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.json(response);
+    }
+  });
+};
+
+export {
+  profileController,
+  searchUserController,
+  updateUserInterests,
+  updateUserLanguages,
+  updateUserBio,
+  deleteFriendChat,
+};
