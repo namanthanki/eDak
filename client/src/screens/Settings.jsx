@@ -41,34 +41,46 @@ const Settings = () => {
   const updateInterestsData = () => {
     setButtonView("disable");
     const id = isAuth()._id;
-    axios.patch(`http://localhost:5000/user/${id}/update/interests`, { interests: responseData.interests })
+    axios
+      .patch(`http://localhost:5000/user/${id}/update/interests`, {
+        interests: responseData.interests,
+      })
       .then((res, err) => {
-        if(res) {
+        if (res) {
           fetchData();
         }
-      }).catch((err) => console.log(err));
+      })
+      .catch((err) => console.log(err));
   };
 
   const updateLanguagesData = () => {
     setButtonView("disable");
     const id = isAuth()._id;
-    axios.patch(`http://localhost:5000/user/${id}/update/languages`, { languages: responseData.languages })
+    axios
+      .patch(`http://localhost:5000/user/${id}/update/languages`, {
+        languages: responseData.languages,
+      })
       .then((res, err) => {
-        if(res) {
+        if (res) {
           fetchData();
         }
-      }).catch((err) => console.log(err));
+      })
+      .catch((err) => console.log(err));
   };
 
   const updateBioData = () => {
     setButtonView("disable");
     const id = isAuth()._id;
-    axios.patch(`http://localhost:5000/user/${id}/update/bio`, { bio: responseData.bio })
+    axios
+      .patch(`http://localhost:5000/user/${id}/update/bio`, {
+        bio: responseData.bio,
+      })
       .then((res, err) => {
-        if(res) {
+        if (res) {
           fetchData();
         }
-      }).catch((err) => console.log(err));
+      })
+      .catch((err) => console.log(err));
   };
 
   useEffect(() => {
@@ -175,7 +187,11 @@ const Settings = () => {
               </div>
               <div className="user-bio-wrapper">
                 <label>Bio</label>
-                <textarea onChange={setBio} value={responseData.bio} />
+                <textarea
+                  onChange={setBio}
+                  value={responseData.bio}
+                  spellCheck={false}
+                />
               </div>
               <div className="button-wrapper">
                 {buttonView === "enable" ? (
