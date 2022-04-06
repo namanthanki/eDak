@@ -26,7 +26,7 @@ const Login = ({ history }) => {
     e.preventDefault();
     if (email && passwordInput) {
       axios
-        .post(`${process.env.REACT_APP_API_URL}/login`, {
+        .post(`api/login`, {
           email,
           password: passwordInput,
         })

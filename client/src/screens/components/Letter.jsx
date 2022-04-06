@@ -16,7 +16,7 @@ const Letter = () => {
 
     try {
       const { data } = await axios.get(
-        `http://localhost:5000/user/message/read/${message_id}/`
+        `/user/message/read/${message_id}/`
       );
       setSelectedMessageData(data);
     } catch (err) {

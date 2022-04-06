@@ -13,7 +13,7 @@ import Letter from "./components/Letter";
 import Friends from "./components/Friends";
 import Write from "./components/Write";
 
-const ENDPOINT = `http://localhost:5000`;
+const ENDPOINT = `https://edak.herokuapp.com/`;
 let socket;
 let selectedChatCompare;
 
@@ -36,7 +36,7 @@ const Home = () => {
       const id = isAuth()._id;
 
       const { data } = await axios.get(
-        `http://localhost:5000/user/chat/${id}/`
+        `/user/chat/${id}/`
       );
       setChats(data);
     } catch (err) {
@@ -77,7 +77,7 @@ const Home = () => {
     try {
       const chat_id = selectedChat._id;
       const { data } = await axios.get(
-        `http://localhost:5000/user/message/${chat_id}/`
+        `/user/message/${chat_id}/`
       );
       setMessages(data);
 

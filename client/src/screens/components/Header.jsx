@@ -66,7 +66,7 @@ const Header = ({ users }) => {
     // console.log(chatId);
 
     axios
-      .delete(`http://localhost:5000/user/${id}/chat/delete`, {
+      .delete(`/user/${id}/chat/delete`, {
         data: { chat_id: chatId },
       })
       .then((res) => {

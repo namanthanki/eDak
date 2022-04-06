@@ -24,7 +24,7 @@ const Navbar = () => {
 
   useEffect(() => {
     const id = isAuth()._id;
-    axios.get(`http://localhost:5000/user/${id}`).then((res) => {
+    axios.get(`/user/${id}`).then((res) => {
       setResponseData(res.data.userProfileImage);
     });
   }, []);

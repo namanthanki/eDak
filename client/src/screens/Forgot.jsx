@@ -26,7 +26,7 @@ const Forgot = ({ history }) => {
     if (email) {
       let id = toast.info("Please Wait...", { autoClose: false });
       axios
-        .put(`${process.env.REACT_APP_API_URL}/password/forgot`, {
+        .put(`api/password/forgot`, {
           email,
         })
         .then((res) => {

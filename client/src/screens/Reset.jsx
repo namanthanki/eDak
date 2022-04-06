@@ -37,7 +37,7 @@ const Reset = ({ match }) => {
     if (passwordInput === confirmPassword && passwordInput && confirmPassword) {
       let id = toast.info("Please Wait...", { autoClose: false });
       axios
-        .put(`${process.env.REACT_APP_API_URL}/password/reset`, {
+        .put(`api/password/reset`, {
           newPassword: passwordInput,
           resetPasswordLink: token,
         })

@@ -26,7 +26,7 @@ const Settings = () => {
 
   const fetchData = () => {
     const id = isAuth()._id;
-    axios.get(`http://localhost:5000/user/${id}`).then((res) => {
+    axios.get(`/user/${id}`).then((res) => {
       setResponseData({
         ...responseData,
         username: res.data.username,
@@ -42,7 +42,7 @@ const Settings = () => {
     setButtonView("disable");
     const id = isAuth()._id;
     axios
-      .patch(`http://localhost:5000/user/${id}/update/interests`, {
+      .patch(`/user/${id}/update/interests`, {
         interests: responseData.interests,
       })
       .then((res, err) => {
@@ -57,7 +57,7 @@ const Settings = () => {
     setButtonView("disable");
     const id = isAuth()._id;
     axios
-      .patch(`http://localhost:5000/user/${id}/update/languages`, {
+      .patch(`/user/${id}/update/languages`, {
         languages: responseData.languages,
       })
       .then((res, err) => {
@@ -72,7 +72,7 @@ const Settings = () => {
     setButtonView("disable");
     const id = isAuth()._id;
     axios
-      .patch(`http://localhost:5000/user/${id}/update/bio`, {
+      .patch(`/user/${id}/update/bio`, {
         bio: responseData.bio,
       })
       .then((res, err) => {

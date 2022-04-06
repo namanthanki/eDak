@@ -36,7 +36,7 @@ const Activate = ({ match }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post(`http://localhost:5000/api/activate`, {
+      .post(`/api/activate`, {
         token,
       })
       .then((res) => {

@@ -90,7 +90,7 @@ const Register = () => {
       if (passwordInput === confirmPassword) {
         id = toast.info("Please Wait...", { autoClose: false });
         axios
-          .post(`${process.env.REACT_APP_API_URL}/register`, {
+          .post(`api/register`, {
             username,
             email,
             userProfileImage,

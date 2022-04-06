@@ -41,7 +41,7 @@ const AddFriend = ({ user }) => {
       };
 
       const { data } = await axios.post(
-        `http://localhost:5000/user/chat/${id}/`,
+        `/user/chat/${id}/`,
         { userId },
         config
       );

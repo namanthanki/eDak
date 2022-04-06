@@ -18,7 +18,7 @@ const ExploreHeader = () => {
       const id = isAuth()._id;
 
       const { data } = await axios.get(
-        `http://localhost:5000/user/${id}/search?username=${search}`
+        `/user/${id}/search?username=${search}`
       );
       setSearchResult(data);
     } catch (err) {
