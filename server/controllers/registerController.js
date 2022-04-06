@@ -70,8 +70,8 @@ const registerController = async (req, res) => {
             ingoreTLS: false,
             service: "Gmail",
             auth: {
-              user: from_email,
-              pass: email_pass,
+              user: "edak.messenger@gmail.com",
+              pass: "9723edak",
             },
           };
 
