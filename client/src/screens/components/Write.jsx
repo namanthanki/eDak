@@ -8,7 +8,7 @@ import { useEffect } from "react";
 import { isAuth } from "../../helpers/auth";
 import { toast, ToastContainer } from "react-toastify";
 
-const ENDPOINT = `http://localhost:5000`;
+const ENDPOINT = `https://edak.herokuapp.com/`;
 let socket;
 const user = isAuth();
 
@@ -45,7 +45,7 @@ const Write = () => {
         };
 
         const { data } = await axios.post(
-          `http://localhost:5000/user/message/${id}/`,
+          `/user/message/${id}/`,
           {
             content: newMessage,
             chat_id: selectedChat._id,
