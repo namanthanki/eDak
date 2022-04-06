@@ -12,6 +12,7 @@ import chatRouter from "./routes/chat.js";
 import messageRouter from "./routes/message.js";
 
 import { connectDatabase } from "./config/db.js";
+import path from "path";
 
 dotenv.config({
   path: "./config/config.env",
@@ -38,6 +39,18 @@ app.use("/api", authRouter);
 app.use("/user", profileRouter);
 app.use("/user/chat/", chatRouter);
 app.use("/user/message", messageRouter);
+
+const __dirname1 = path.resolve();
+if(process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname1, "../client/build")));
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname1, "client", "build", "index.html"));
+  });
+} else {
+  app.get("/", (req, res) => {
+    res.send("API is running");
+  })
+}
 
 app.use((req, res, next) => {
   res.status(404).json({
