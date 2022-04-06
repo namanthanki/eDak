@@ -63,16 +63,17 @@ const Header = ({ users }) => {
   const deleteChat = () => {
     const id = isAuth()._id;
     const chatId = selectedChat._id;
-    console.log(chatId);
+    // console.log(chatId);
 
     axios
       .delete(`http://localhost:5000/user/${id}/chat/delete`, {
-        chat_id: chatId,
+        data: { chat_id: chatId },
       })
       .then((res) => {
         toast.success("Chat Deleted Succesfully!");
         setComponent("defaultView");
         history.push("/app");
+        window.location.reload(true);
       })
       .catch((err) => {
         console.log(err);

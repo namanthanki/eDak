@@ -92,6 +92,7 @@ const updateUserBio = async (req, res) => {
 
 const deleteFriendChat = async (req, res) => {
   const { chat_id } = req.body;
+  console.log(chat_id);
 
   await Chat.findOneAndDelete({ _id: chat_id }, (err, response) => {
     if (err) {
