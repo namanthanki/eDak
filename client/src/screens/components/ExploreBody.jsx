@@ -21,9 +21,7 @@ const ExploreBody = () => {
                     moment()
                       .diff(user.dateOfBirth, "years", false)
                       .toString() || u === "55+"
-                    ? moment().diff(user.dateOfBirth, "years", false) >= 55
-                      ? true
-                      : false
+                    ? true
                     : false
                 ) ? (
                   <AddFriend user={user} key={user._id} />

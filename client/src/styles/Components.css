@@ -370,11 +370,11 @@
 }
 
 .letter.defaultBorder {
-  border: 1px solid var(--border);
+  border: 1px solid var(--accent);
 }
 
 .letter.accentBorder {
-  border: 1px solid var(--accent);
+  border: 1px solid var(--blue);
 }
 
 .user-name {

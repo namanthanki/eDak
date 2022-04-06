@@ -32,7 +32,7 @@ const Letters = () => {
                     <p>{msg.content}</p>
                   </div>
                   <div className="user-name ">
-                    <h2 className="accent">{msg.sender.username}</h2>
+                    <h2>{msg.sender.username}</h2>
                   </div>
                 </div>
               ) : null}

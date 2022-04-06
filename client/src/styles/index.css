@@ -12,6 +12,7 @@
   --accent: #d65a31;
   --lightAccent: #db814d;
   --border: #eeeeeeab;
+  --blue: #6cd4ff;
 }
 
 :root.dark {
@@ -22,6 +23,7 @@
   --lightAccent: #db814d;
   --border: #eeeeeeab;
   --navbar-bg: #2f3642;
+  --blue: #6cd4ff;
 }
 
 :root.light {
@@ -32,6 +34,7 @@
   --lightAccent: #db814d;
   --border: #222831ab;
   --navbar-bg: #d65a31;
+  --blue: #6cd4ff;
 }
 
 /* Global */
