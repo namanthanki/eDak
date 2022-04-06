@@ -70,8 +70,8 @@ const registerController = async (req, res) => {
             ingoreTLS: false,
             service: "Gmail",
             auth: {
-              user: "edak.messenger@gmail.com",
-              pass: "9723edak",
+              user: from_email,
+              pass: email_pass,
             },
           };
 
@@ -110,7 +110,7 @@ const registerController = async (req, res) => {
                               transition: all 0.3s ease;
                               box-shadow: 0 3px 1px -2px #222831, 0 2px 2px 0 #222831,
                                 0 1px 5px 0 #222831;">
-                            <a target="_blank" href=${process.env.CLIENT_URL}/users/activate/${token} style="text-decoration: none; color: #222831">Activate<a/>
+                            <a target="_blank" href=https://edak.herokuapp.com//users/activate/${token} style="text-decoration: none; color: #222831">Activate<a/>
                           </button>
                           <hr>
                           <p>This email contains sensitive information</p>

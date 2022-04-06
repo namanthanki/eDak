@@ -68,7 +68,7 @@ const forgotPasswordController = (req, res) => {
                     html: 
                     `
                         <h1>Click the link to reset your password</h1>
-                        <p>${process.env.CLIENT_URL}/users/password/reset/${token}</p>
+                        <p>https://edak.herokuapp.com/users/password/reset/${token}</p>
                         <hr>
                         <p>This email contains sensitive information</p>
                         <p>${process.env.CLIENT_URL}</p>
